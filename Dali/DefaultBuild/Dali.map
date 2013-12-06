@@ -1,0 +1,897 @@
+
+
+
+78K0R Linker W1.51                            Date: 7 Dec 2013 Page:   1
+
+Command:   -yC:\Program Files\Renesas Electronics\CubeSuite+\Device\RL78
+           \Devicefile -_msgoff -dlk_eel_re.dr -oobj\Dali.lmf -gi0000000
+           0000000000000h -go85h,0FC00h,1024 -gb6E73EBH -mi0 -s -pDefaul
+           tBuild\Dali.map C:\Program Files\Renesas Electronics\CubeSuit
+           e+\CA78K0R\V1.30\lib78k0r\s0rll.rel DefaultBuild\r_main.rel D
+           efaultBuild\r_usermain.rel DefaultBuild\r_userinit.rel Defaul
+           tBuild\r_dali.rel DefaultBuild\r_dali_user.rel DefaultBuild\r
+           _dali_analyze.rel DefaultBuild\r_dali_command.rel DefaultBuil
+           d\r_dali_timer.rel DefaultBuild\r_dali_memorybank.rel Default
+           Build\r_dali_variable.rel DefaultBuild\r_timer.rel DefaultBui
+           ld\r_led.rel DefaultBuild\r_led1.rel DefaultBuild\r_led2.rel 
+           DefaultBuild\r_led3.rel DefaultBuild\r_led_user.rel DefaultBu
+           ild\r_systeminit.rel DefaultBuild\r_cgc.rel DefaultBuild\r_lv
+           d.rel DefaultBuild\r_wdt.rel DefaultBuild\fdl_descriptor.rel 
+           DefaultBuild\eel_descriptor.rel -beel_re\lib\fdl.lib -beel_re
+           \lib\eel.lib -bcl0ram.lib -bcl0rm.lib -bcl0rmf.lib -iC:\Progr
+           am Files\Renesas Electronics\CubeSuite+\CA78K0R\V1.30\lib78k0
+           r
+Para-file:
+Out-file:  obj\Dali.lmf
+Map-file:  DefaultBuild\Dali.map
+Direc-file:lk_eel_re.dr
+Directive: ;============================================================
+           =====================================
+           ; Project      = EEPROM Emulation Library (T01)
+           ; Module       = eel_linker_file.dr
+           ; Device:      = RL78
+           ; Version      = V1.10
+           ; Date         = 09.12.2010 09:30:09
+           ;============================================================
+           =====================================
+           ;                                  COPYRIGHT
+           ;============================================================
+           =====================================
+           ; Copyright (c) 2010 by Renesas Electronics Europe GmbH, a co
+           mpany of the Renesas Electronics) GmbH,
+           ; Corporation. All rights reserved.
+           ;============================================================
+           =====================================
+           ; Purpose:
+           ;              Linker sample file
+           ;
+           ;============================================================
+           =====================================
+           ;
+           ; Warranty Disclaimer
+           ;
+           ; Because the Product(s) is licensed free of charge, there is
+            no warranty of any kind whatsoever
+           ; and expressly disclaimed and excluded by Renesas, either ex
+           pressed or implied, including but
+           ; not limited to those for non-infringement of intellectual p
+           roperty, merchantability and/or
+           ; fitness for the particular purpose.
+           ; Renesas shall not have any obligation to maintain, service 
+           or provide bug fixes for the
+           ; supplied Product(s) and/or the Application.
+           ;
+           ; Each User is solely responsible for determining the appropr
+           iateness of using the Product(s)
+           ; and assumes all risks associated with its exercise of right
+           s under this Agreement, including,
+           ; but not limited to the risks and costs of program errors, c
+           ompliance with applicable laws,
+           ; damage to or loss of data, programs or equipment, and unava
+           ilability or interruption of
+           ; operations.
+           ;
+           ; Limitation of Liability
+           ;
+           ; In no event shall Renesas be liable to the User for any inc
+           idental, consequential, indirect,
+           ; or punitive damage (including but not limited to lost profi
+           ts) regardless of whether such
+           ; liability is based on breach of contract, tort, strict liab
+           ility, breach of warranties,
+           ; failure of essential purpose or otherwise and even if advis
+           ed of the possibility of such
+           ; damages. Renesas shall not be liable for any services or pr
+           oducts provided by third party
+           ; vendors, developers or consultants identified or referred t
+           o the User by Renesas in
+           ; connection with the Product(s) and/or the Application.
+           ;
+           ;============================================================
+           =====================================
+           
+           
+           ; -----------------------------------------------------------
+           
+           ; Redefined default RAM segment
+           ; -----------------------------------------------------------
+           
+           ;MEMORY RAM:(0FF700H, 07FFH)
+           MEMORY RAM       : (0FF300H, 000B20H)
+           MEMORY RAM_SADDR : (0FFE20H, 0000C0H)
+           
+           ; -----------------------------------------------------------
+           
+           ; EEL_CODE and FAL_CODE segments are located inside ROM
+           ; -----------------------------------------------------------
+           
+           MERGE  FAL_CODE:=ROM
+           MERGE  EEL_CODE:=ROM
+           
+           ; -----------------------------------------------------------
+           
+           ; EEL_DATA and EEL_UDAT segments are located inside RAM
+           ; -----------------------------------------------------------
+           
+           MERGE EEL_DATA:=RAM
+           MERGE EEL_UDAT:=RAM
+           
+           ; -----------------------------------------------------------
+           
+           ; EEL_SDAT segment is located inside RAM
+           ; -----------------------------------------------------------
+           
+           ;MERGE EEL_SDAT:=RAM
+            MERGE EEL_SDAT:=RAM_SADDR
+            MERGE FAL_DATA:=RAM_SADDR
+           
+           ; -----------------------------------------------------------
+           
+           ; EEL_CNST and FAL_CNST segments are located inside ROM
+           ; -----------------------------------------------------------
+           
+           MERGE EEL_CNST:=ROM
+           MERGE FAL_CNST:=ROM
+
+
+*** Link information ***
+
+    58 output segment(s)
+ 48F1H byte(s) real data
+  3431 symbol(s) defined
+
+
+*** Memory map ***
+
+
+  SPACE=REGULAR
+
+  MEMORY=ROM
+  BASE ADDRESS=00000H   SIZE=10000H
+         OUTPUT   INPUT    INPUT      BASE      SIZE
+         SEGMENT  SEGMENT  MODULE     ADDRESS
+         @@VECT00                     00000H    00002H  CSEG AT
+                  @@VECT00 @cstart    00000H    00002H
+         EEL_CNST                     00002H    00000H  CSEG PAGE64KP
+         FAL_CNST                     00002H    00000H  CSEG PAGE64KP
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  @cstart    00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_main     00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_usermain
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_userinit
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali     00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali_user
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali_analyze
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali_command
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali_timer
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali_memorybank
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_dali_variable
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_timer    00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_led      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_led1     00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_led2     00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_led3     00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_led_user
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_systeminit
+                                      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_cgc      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_lvd      00002H    00000H
+         @@CNSTL                      00002H    00000H  CSEG PAGE64KP
+                  @@CNSTL  r_wdt      00002H    00000H
+         @@RLINIT                     00002H    00000H  CSEG UNIT64KP
+                  @@RLINIT @cstart    00002H    00000H
+                  @@RLINIT r_main     00002H    00000H
+                  @@RLINIT r_usermain
+                                      00002H    00000H
+                  @@RLINIT r_userinit
+                                      00002H    00000H
+                  @@RLINIT r_dali     00002H    00000H
+                  @@RLINIT r_dali_user
+                                      00002H    00000H
+                  @@RLINIT r_dali_analyze
+                                      00002H    00000H
+                  @@RLINIT r_dali_command
+                                      00002H    00000H
+                  @@RLINIT r_dali_timer
+                                      00002H    00000H
+                  @@RLINIT r_dali_memorybank
+                                      00002H    00000H
+                  @@RLINIT r_dali_variable
+                                      00002H    00000H
+                  @@RLINIT r_timer    00002H    00000H
+                  @@RLINIT r_led      00002H    00000H
+                  @@RLINIT r_led1     00002H    00000H
+                  @@RLINIT r_led2     00002H    00000H
+                  @@RLINIT r_led3     00002H    00000H
+                  @@RLINIT r_led_user
+                                      00002H    00000H
+                  @@RLINIT r_systeminit
+                                      00002H    00000H
+                  @@RLINIT r_cgc      00002H    00000H
+                  @@RLINIT r_lvd      00002H    00000H
+                  @@RLINIT r_wdt      00002H    00000H
+                  @@RLINIT FAL_DESCR
+                                      00002H    00000H
+                  @@RLINIT EEL_DESCRIPTOR
+                                      00002H    00000H
+                  @@RLINIT @rom       00002H    00000H
+         @@R_INIS                     00002H    00000H  CSEG UNIT64KP
+                  @@R_INIS @cstart    00002H    00000H
+                  @@R_INIS r_main     00002H    00000H
+                  @@R_INIS r_usermain
+                                      00002H    00000H
+                  @@R_INIS r_userinit
+                                      00002H    00000H
+                  @@R_INIS r_dali     00002H    00000H
+                  @@R_INIS r_dali_user
+                                      00002H    00000H
+                  @@R_INIS r_dali_analyze
+                                      00002H    00000H
+                  @@R_INIS r_dali_command
+                                      00002H    00000H
+                  @@R_INIS r_dali_timer
+                                      00002H    00000H
+                  @@R_INIS r_dali_memorybank
+                                      00002H    00000H
+                  @@R_INIS r_dali_variable
+                                      00002H    00000H
+                  @@R_INIS r_timer    00002H    00000H
+                  @@R_INIS r_led      00002H    00000H
+                  @@R_INIS r_led1     00002H    00000H
+                  @@R_INIS r_led2     00002H    00000H
+                  @@R_INIS r_led3     00002H    00000H
+                  @@R_INIS r_led_user
+                                      00002H    00000H
+                  @@R_INIS r_systeminit
+                                      00002H    00000H
+                  @@R_INIS r_cgc      00002H    00000H
+                  @@R_INIS r_lvd      00002H    00000H
+                  @@R_INIS r_wdt      00002H    00000H
+                  @@R_INIS FAL_DESCR
+                                      00002H    00000H
+                  @@R_INIS EEL_DESCRIPTOR
+                                      00002H    00000H
+                  @@R_INIS @rom       00002H    00000H
+         @@CALT                       00002H    00000H  CSEG
+                  @@CALT   @cstart    00002H    00000H
+                  @@CALT   r_main     00002H    00000H
+                  @@CALT   r_usermain
+                                      00002H    00000H
+                  @@CALT   r_userinit
+                                      00002H    00000H
+                  @@CALT   r_dali     00002H    00000H
+                  @@CALT   r_dali_user
+                                      00002H    00000H
+                  @@CALT   r_dali_analyze
+                                      00002H    00000H
+                  @@CALT   r_dali_command
+                                      00002H    00000H
+                  @@CALT   r_dali_timer
+                                      00002H    00000H
+                  @@CALT   r_dali_memorybank
+                                      00002H    00000H
+                  @@CALT   r_dali_variable
+                                      00002H    00000H
+                  @@CALT   r_timer    00002H    00000H
+                  @@CALT   r_led      00002H    00000H
+                  @@CALT   r_led1     00002H    00000H
+                  @@CALT   r_led2     00002H    00000H
+                  @@CALT   r_led3     00002H    00000H
+                  @@CALT   r_led_user
+                                      00002H    00000H
+                  @@CALT   r_systeminit
+                                      00002H    00000H
+                  @@CALT   r_cgc      00002H    00000H
+                  @@CALT   r_lvd      00002H    00000H
+                  @@CALT   r_wdt      00002H    00000H
+                  @@CALT   FAL_DESCR
+                                      00002H    00000H
+                  @@CALT   EEL_DESCRIPTOR
+                                      00002H    00000H
+         ??NMIROM                     00002H    00002H  CSEG
+         EEL_CNST                     00004H    00014H  CSEG PAGE64KP
+                  EEL_CNST EEL_DESCRIPTOR
+                                      00004H    00014H
+* gap *                               00018H    00014H
+         @@VECT2C                     0002CH    00002H  CSEG AT
+                  @@VECT2C r_timer    0002CH    00002H
+         @@VECT2E                     0002EH    00002H  CSEG AT
+                  @@VECT2E r_led      0002EH    00002H
+         FAL_CNST                     00030H    00040H  CSEG PAGE64KP
+                  FAL_CNST FAL_DESCR
+                                      00030H    00040H
+* gap *                               00070H    00050H
+         ?CSEGOB0                     000C0H    00004H  CSEG OPT_BYTE
+         @@CODE                       000C4H    00000H  CSEG BASE
+                  @@CODE   r_main     000C4H    00000H
+                  @@CODE   r_usermain
+                                      000C4H    00000H
+                  @@CODE   r_userinit
+                                      000C4H    00000H
+                  @@CODE   r_dali     000C4H    00000H
+                  @@CODE   r_dali_user
+                                      000C4H    00000H
+                  @@CODE   r_dali_analyze
+                                      000C4H    00000H
+                  @@CODE   r_dali_command
+                                      000C4H    00000H
+                  @@CODE   r_dali_timer
+                                      000C4H    00000H
+                  @@CODE   r_dali_memorybank
+                                      000C4H    00000H
+                  @@CODE   r_dali_variable
+                                      000C4H    00000H
+                  @@CODE   r_timer    000C4H    00000H
+                  @@CODE   r_led      000C4H    00000H
+                  @@CODE   r_led1     000C4H    00000H
+                  @@CODE   r_led2     000C4H    00000H
+                  @@CODE   r_led3     000C4H    00000H
+                  @@CODE   r_led_user
+                                      000C4H    00000H
+                  @@CODE   r_systeminit
+                                      000C4H    00000H
+                  @@CODE   r_cgc      000C4H    00000H
+                  @@CODE   r_lvd      000C4H    00000H
+                  @@CODE   r_wdt      000C4H    00000H
+                  @@CODE   FAL_DESCR
+                                      000C4H    00000H
+                  @@CODE   EEL_DESCRIPTOR
+                                      000C4H    00000H
+         ?CSEGSI                      000C4H    0000AH  CSEG
+         ?OCDSTAD                     000CEH    0000AH  CSEG
+         @@LCODE                      000D8H    001DCH  CSEG BASE
+                  @@LCODE  @cstart    000D8H    000ACH
+                  @@LCODE  @lmul      00184H    0002BH
+                  @@LCODE  @ludiv     001AFH    0003FH
+                  @@LCODE  @divuw     001EEH    00034H
+                  @@LCODE  @lrev      00222H    0000FH
+                  @@LCODE  @ladd      00231H    0000FH
+                  @@LCODE  @lsub      00240H    00012H
+                  @@LCODE  @llsh      00252H    0001BH
+                  @@LCODE  @lursh     0026DH    0001FH
+                  @@LCODE  @lscmp     0028CH    00014H
+                  @@LCODE  @lband     002A0H    00014H
+         @@BASE                       002B4H    004CEH  CSEG BASE
+                  @@BASE   r_main     002B4H    00000H
+                  @@BASE   r_usermain
+                                      002B4H    00000H
+                  @@BASE   r_userinit
+                                      002B4H    00000H
+                  @@BASE   r_dali     002B4H    00000H
+                  @@BASE   r_dali_user
+                                      002B4H    00000H
+                  @@BASE   r_dali_analyze
+                                      002B4H    00000H
+                  @@BASE   r_dali_command
+                                      002B4H    00000H
+                  @@BASE   r_dali_timer
+                                      002B4H    00000H
+                  @@BASE   r_dali_memorybank
+                                      002B4H    00000H
+                  @@BASE   r_dali_variable
+                                      002B4H    00000H
+                  @@BASE   r_timer    002B4H    00040H
+                  @@BASE   r_led      002F4H    0048EH
+                  @@BASE   r_led1     00782H    00000H
+                  @@BASE   r_led2     00782H    00000H
+                  @@BASE   r_led3     00782H    00000H
+                  @@BASE   r_led_user
+                                      00782H    00000H
+                  @@BASE   r_systeminit
+                                      00782H    00000H
+                  @@BASE   r_cgc      00782H    00000H
+                  @@BASE   r_lvd      00782H    00000H
+                  @@BASE   r_wdt      00782H    00000H
+                  @@BASE   FAL_DESCR
+                                      00782H    00000H
+                  @@BASE   EEL_DESCRIPTOR
+                                      00782H    00000H
+         FAL_CODE                     00782H    005C2H  CSEG UNIT64KP
+                  FAL_CODE fal        00782H    00129H
+                  FAL_CODE fal_data   008ACH    00024H
+                  FAL_CODE fdl_fsm_cm
+                                      008D0H    00051H
+                  FAL_CODE fdl_functions
+                                      00922H    0036CH
+                  FAL_CODE fdl_fsm_bc
+                                      00C8EH    00020H
+                  FAL_CODE fdl_fsm_er
+                                      00CAEH    00023H
+                  FAL_CODE fdl_fsm_iv
+                                      00CD2H    00020H
+                  FAL_CODE fdl_fsm_wr
+                                      00CF2H    00034H
+                  FAL_CODE fdl_bios   00D26H    0001EH
+         @@R_INIT                     00D44H    000BAH  CSEG UNIT64KP
+                  @@R_INIT @cstart    00D44H    00000H
+                  @@R_INIT r_main     00D44H    00000H
+                  @@R_INIT r_usermain
+                                      00D44H    00000H
+                  @@R_INIT r_userinit
+                                      00D44H    00000H
+                  @@R_INIT r_dali     00D44H    00002H
+                  @@R_INIT r_dali_user
+                                      00D46H    00078H
+                  @@R_INIT r_dali_analyze
+                                      00DBEH    00000H
+                  @@R_INIT r_dali_command
+                                      00DBEH    00000H
+                  @@R_INIT r_dali_timer
+                                      00DBEH    00000H
+                  @@R_INIT r_dali_memorybank
+                                      00DBEH    00032H
+                  @@R_INIT r_dali_variable
+                                      00DF0H    00000H
+                  @@R_INIT r_timer    00DF0H    00004H
+                  @@R_INIT r_led      00DF4H    00004H
+                  @@R_INIT r_led1     00DF8H    00002H
+                  @@R_INIT r_led2     00DFAH    00002H
+                  @@R_INIT r_led3     00DFCH    00002H
+                  @@R_INIT r_led_user
+                                      00DFEH    00000H
+                  @@R_INIT r_systeminit
+                                      00DFEH    00000H
+                  @@R_INIT r_cgc      00DFEH    00000H
+                  @@R_INIT r_lvd      00DFEH    00000H
+                  @@R_INIT r_wdt      00DFEH    00000H
+                  @@R_INIT FAL_DESCR
+                                      00DFEH    00000H
+                  @@R_INIT EEL_DESCRIPTOR
+                                      00DFEH    00000H
+                  @@R_INIT @rom       00DFEH    00000H
+         @@LCODEL                     00DFEH    00064H  CSEG
+                  @@LCODEL exit       00DFEH    0001CH
+                  @@LCODEL rand       00E1AH    00040H
+                  @@LCODEL srand      00E5AH    00008H
+* gap *                               00E62H    0119EH
+         @@CNST                       02000H    00178H  CSEG MIRRORP
+                  @@CNST   @cstart    02000H    00000H
+                  @@CNST   r_main     02000H    00000H
+                  @@CNST   r_usermain
+                                      02000H    00000H
+                  @@CNST   r_userinit
+                                      02000H    00000H
+                  @@CNST   r_dali     02000H    00004H
+                  @@CNST   r_dali_user
+                                      02004H    00004H
+                  @@CNST   r_dali_analyze
+                                      02008H    00000H
+                  @@CNST   r_dali_command
+                                      02008H    00070H
+                  @@CNST   r_dali_timer
+                                      02078H    00000H
+                  @@CNST   r_dali_memorybank
+                                      02078H    00000H
+                  @@CNST   r_dali_variable
+                                      02078H    00000H
+                  @@CNST   r_timer    02078H    00000H
+                  @@CNST   r_led      02078H    00000H
+                  @@CNST   r_led1     02078H    00000H
+                  @@CNST   r_led2     02078H    00000H
+                  @@CNST   r_led3     02078H    00000H
+                  @@CNST   r_led_user
+                                      02078H    00100H
+                  @@CNST   r_systeminit
+                                      02178H    00000H
+                  @@CNST   r_cgc      02178H    00000H
+                  @@CNST   r_lvd      02178H    00000H
+                  @@CNST   r_wdt      02178H    00000H
+                  @@CNST   FAL_DESCR
+                                      02178H    00000H
+                  @@CNST   EEL_DESCRIPTOR
+                                      02178H    00000H
+         EEL_CODE                     02178H    019ABH  CSEG UNIT64KP
+                  EEL_CODE eel        02178H    00122H
+                  EEL_CODE eel_BG0_inspection
+                                      0229AH    001DFH
+                  EEL_CODE eel_BG1_activate
+                                      0247AH    00025H
+                  EEL_CODE eel_BG1_expand
+                                      024A0H    0005DH
+                  EEL_CODE eel_BG1_format
+                                      024FEH    0009EH
+                  EEL_CODE eel_BG1_refresh
+                                      0259CH    00124H
+                  EEL_CODE eel_BG1_shutdown
+                                      026C0H    00014H
+                  EEL_CODE eel_BG1_startup
+                                      026D4H    00184H
+                  EEL_CODE eel_BG1_refsearch
+                                      02858H    0000EH
+                  EEL_CODE eel_BG2_activate
+                                      02866H    00071H
+                  EEL_CODE eel_BG2_consume
+                                      028D8H    00030H
+                  EEL_CODE eel_BG2_copy
+                                      02908H    00097H
+                  EEL_CODE eel_BG2_exclude
+                                      029A0H    0004AH
+                  EEL_CODE eel_BG2_prepare
+                                      029EAH    000CFH
+                  EEL_CODE eel_BG2_format
+                                      02ABAH    0001DH
+                  EEL_CODE eel_BG2_refsearch
+                                      02AD8H    000EFH
+                  EEL_CODE eel_BG2_scan
+                                      02BC8H    00144H
+                  EEL_CODE eel_BG2_headchk
+                                      02D0CH    000A5H
+                  EEL_CODE eel_BF3_bios
+                                      02DB2H    000D7H
+                  EEL_CODE eel_data   02E8AH    0002EH
+                  EEL_CODE eel_FG1_cleanup
+                                      02EB8H    00011H
+                  EEL_CODE eel_FG1_format
+                                      02ECAH    0000BH
+                  EEL_CODE eel_FG1_read
+                                      02ED6H    00046H
+                  EEL_CODE eel_FG1_shutdown
+                                      02F1CH    0000CH
+                  EEL_CODE eel_FG1_startup
+                                      02F28H    0000EH
+                  EEL_CODE eel_FG1_write
+                                      02F36H    000F0H
+                  EEL_CODE eel_FG2_activate
+                                      03026H    0006BH
+                  EEL_CODE eel_FG2_exclude
+                                      03092H    00041H
+                  EEL_CODE eel_FG2_read
+                                      030D4H    00083H
+                  EEL_CODE eel_FG2_write
+                                      03158H    00070H
+                  EEL_CODE eel_functions
+                                      031C8H    0090EH
+                  EEL_CODE eel_timeout
+                                      03AD6H    0004DH
+         @@CODEL                      03B23H    01BE2H  CSEG
+                  @@CODEL  r_main     03B23H    0000FH
+                  @@CODEL  r_usermain
+                                      03B32H    00014H
+                  @@CODEL  r_userinit
+                                      03B46H    00008H
+                  @@CODEL  r_dali     03B4EH    0060CH
+                  @@CODEL  r_dali_user
+                                      0415AH    00000H
+                  @@CODEL  r_dali_analyze
+                                      0415AH    00199H
+                  @@CODEL  r_dali_command
+                                      042F3H    00C15H
+                  @@CODEL  r_dali_timer
+                                      04F08H    00368H
+                  @@CODEL  r_dali_memorybank
+                                      05270H    0011EH
+                  @@CODEL  r_dali_variable
+                                      0538EH    0011EH
+                  @@CODEL  r_timer    054ACH    0001AH
+                  @@CODEL  r_led      054C6H    000C4H
+                  @@CODEL  r_led1     0558AH    00059H
+                  @@CODEL  r_led2     055E3H    00059H
+                  @@CODEL  r_led3     0563CH    00059H
+                  @@CODEL  r_led_user
+                                      05695H    00000H
+                  @@CODEL  r_systeminit
+                                      05695H    00013H
+                  @@CODEL  r_cgc      056A8H    0003AH
+                  @@CODEL  r_lvd      056E2H    0001FH
+                  @@CODEL  r_wdt      05701H    00004H
+                  @@CODEL  FAL_DESCR
+                                      05705H    00000H
+                  @@CODEL  EEL_DESCRIPTOR
+                                      05705H    00000H
+* gap *                               05705H    0A4FBH
+         ??OCDROM                     0FC00H    00400H  CSEG
+
+  MEMORY=RAM
+  BASE ADDRESS=FF300H   SIZE=00B20H
+         OUTPUT   INPUT    INPUT      BASE      SIZE
+         SEGMENT  SEGMENT  MODULE     ADDRESS
+         EEL_UDAT                     FF300H    00002H  DSEG
+                  EEL_UDAT EEL_DESCRIPTOR
+                                      FF300H    00002H
+         @@DATA                       FF302H    00122H  DSEG BASEP
+                  @@DATA   @cstart    FF302H    000BAH
+                  @@DATA   r_main     FF3BCH    00000H
+                  @@DATA   r_usermain
+                                      FF3BCH    00000H
+                  @@DATA   r_userinit
+                                      FF3BCH    00000H
+                  @@DATA   r_dali     FF3BCH    0002AH
+                  @@DATA   r_dali_user
+                                      FF3E6H    00000H
+                  @@DATA   r_dali_analyze
+                                      FF3E6H    00000H
+                  @@DATA   r_dali_command
+                                      FF3E6H    00000H
+                  @@DATA   r_dali_timer
+                                      FF3E6H    0003CH
+                  @@DATA   r_dali_memorybank
+                                      FF422H    00000H
+                  @@DATA   r_dali_variable
+                                      FF422H    00000H
+                  @@DATA   r_timer    FF422H    00000H
+                  @@DATA   r_led      FF422H    00002H
+                  @@DATA   r_led1     FF424H    00000H
+                  @@DATA   r_led2     FF424H    00000H
+                  @@DATA   r_led3     FF424H    00000H
+                  @@DATA   r_led_user
+                                      FF424H    00000H
+                  @@DATA   r_systeminit
+                                      FF424H    00000H
+                  @@DATA   r_cgc      FF424H    00000H
+                  @@DATA   r_lvd      FF424H    00000H
+                  @@DATA   r_wdt      FF424H    00000H
+                  @@DATA   FAL_DESCR
+                                      FF424H    00000H
+                  @@DATA   @rom       FF424H    00000H
+         @@INIT                       FF424H    000BAH  DSEG BASEP
+                  @@INIT   @cstart    FF424H    00000H
+                  @@INIT   r_main     FF424H    00000H
+                  @@INIT   r_usermain
+                                      FF424H    00000H
+                  @@INIT   r_userinit
+                                      FF424H    00000H
+                  @@INIT   r_dali     FF424H    00002H
+                  @@INIT   r_dali_user
+                                      FF426H    00078H
+                  @@INIT   r_dali_analyze
+                                      FF49EH    00000H
+                  @@INIT   r_dali_command
+                                      FF49EH    00000H
+                  @@INIT   r_dali_timer
+                                      FF49EH    00000H
+                  @@INIT   r_dali_memorybank
+                                      FF49EH    00032H
+                  @@INIT   r_dali_variable
+                                      FF4D0H    00000H
+                  @@INIT   r_timer    FF4D0H    00004H
+                  @@INIT   r_led      FF4D4H    00004H
+                  @@INIT   r_led1     FF4D8H    00002H
+                  @@INIT   r_led2     FF4DAH    00002H
+                  @@INIT   r_led3     FF4DCH    00002H
+                  @@INIT   r_led_user
+                                      FF4DEH    00000H
+                  @@INIT   r_systeminit
+                                      FF4DEH    00000H
+                  @@INIT   r_cgc      FF4DEH    00000H
+                  @@INIT   r_lvd      FF4DEH    00000H
+                  @@INIT   r_wdt      FF4DEH    00000H
+                  @@INIT   FAL_DESCR
+                                      FF4DEH    00000H
+                  @@INIT   EEL_DESCRIPTOR
+                                      FF4DEH    00000H
+                  @@INIT   @rom       FF4DEH    00000H
+         EEL_DATA                     FF4DEH    00000H  DSEG UNITP
+                  EEL_DATA eel_data   FF4DEH    00000H
+         @@INIS                       FF4DEH    00000H  DSEG UNITP
+                  @@INIS   @cstart    FF4DEH    00000H
+                  @@INIS   r_main     FF4DEH    00000H
+                  @@INIS   r_usermain
+                                      FF4DEH    00000H
+                  @@INIS   r_userinit
+                                      FF4DEH    00000H
+                  @@INIS   r_dali     FF4DEH    00000H
+                  @@INIS   r_dali_user
+                                      FF4DEH    00000H
+                  @@INIS   r_dali_analyze
+                                      FF4DEH    00000H
+                  @@INIS   r_dali_command
+                                      FF4DEH    00000H
+                  @@INIS   r_dali_timer
+                                      FF4DEH    00000H
+                  @@INIS   r_dali_memorybank
+                                      FF4DEH    00000H
+                  @@INIS   r_dali_variable
+                                      FF4DEH    00000H
+                  @@INIS   r_timer    FF4DEH    00000H
+                  @@INIS   r_led      FF4DEH    00000H
+                  @@INIS   r_led1     FF4DEH    00000H
+                  @@INIS   r_led2     FF4DEH    00000H
+                  @@INIS   r_led3     FF4DEH    00000H
+                  @@INIS   r_led_user
+                                      FF4DEH    00000H
+                  @@INIS   r_systeminit
+                                      FF4DEH    00000H
+                  @@INIS   r_cgc      FF4DEH    00000H
+                  @@INIS   r_lvd      FF4DEH    00000H
+                  @@INIS   r_wdt      FF4DEH    00000H
+                  @@INIS   FAL_DESCR
+                                      FF4DEH    00000H
+                  @@INIS   EEL_DESCRIPTOR
+                                      FF4DEH    00000H
+                  @@INIS   @rom       FF4DEH    00000H
+         @@INITL                      FF4DEH    00000H  DSEG UNIT64KP
+                  @@INITL  @cstart    FF4DEH    00000H
+                  @@INITL  r_main     FF4DEH    00000H
+                  @@INITL  r_usermain
+                                      FF4DEH    00000H
+                  @@INITL  r_userinit
+                                      FF4DEH    00000H
+                  @@INITL  r_dali     FF4DEH    00000H
+                  @@INITL  r_dali_user
+                                      FF4DEH    00000H
+                  @@INITL  r_dali_analyze
+                                      FF4DEH    00000H
+                  @@INITL  r_dali_command
+                                      FF4DEH    00000H
+                  @@INITL  r_dali_timer
+                                      FF4DEH    00000H
+                  @@INITL  r_dali_memorybank
+                                      FF4DEH    00000H
+                  @@INITL  r_dali_variable
+                                      FF4DEH    00000H
+                  @@INITL  r_timer    FF4DEH    00000H
+                  @@INITL  r_led      FF4DEH    00000H
+                  @@INITL  r_led1     FF4DEH    00000H
+                  @@INITL  r_led2     FF4DEH    00000H
+                  @@INITL  r_led3     FF4DEH    00000H
+                  @@INITL  r_led_user
+                                      FF4DEH    00000H
+                  @@INITL  r_systeminit
+                                      FF4DEH    00000H
+                  @@INITL  r_cgc      FF4DEH    00000H
+                  @@INITL  r_lvd      FF4DEH    00000H
+                  @@INITL  r_wdt      FF4DEH    00000H
+                  @@INITL  FAL_DESCR
+                                      FF4DEH    00000H
+                  @@INITL  EEL_DESCRIPTOR
+                                      FF4DEH    00000H
+                  @@INITL  @rom       FF4DEH    00000H
+         @@DATAL                      FF4DEH    00000H  DSEG UNIT64KP
+                  @@DATAL  @cstart    FF4DEH    00000H
+                  @@DATAL  r_main     FF4DEH    00000H
+                  @@DATAL  r_usermain
+                                      FF4DEH    00000H
+                  @@DATAL  r_userinit
+                                      FF4DEH    00000H
+                  @@DATAL  r_dali     FF4DEH    00000H
+                  @@DATAL  r_dali_user
+                                      FF4DEH    00000H
+                  @@DATAL  r_dali_analyze
+                                      FF4DEH    00000H
+                  @@DATAL  r_dali_command
+                                      FF4DEH    00000H
+                  @@DATAL  r_dali_timer
+                                      FF4DEH    00000H
+                  @@DATAL  r_dali_memorybank
+                                      FF4DEH    00000H
+                  @@DATAL  r_dali_variable
+                                      FF4DEH    00000H
+                  @@DATAL  r_timer    FF4DEH    00000H
+                  @@DATAL  r_led      FF4DEH    00000H
+                  @@DATAL  r_led1     FF4DEH    00000H
+                  @@DATAL  r_led2     FF4DEH    00000H
+                  @@DATAL  r_led3     FF4DEH    00000H
+                  @@DATAL  r_led_user
+                                      FF4DEH    00000H
+                  @@DATAL  r_systeminit
+                                      FF4DEH    00000H
+                  @@DATAL  r_cgc      FF4DEH    00000H
+                  @@DATAL  r_lvd      FF4DEH    00000H
+                  @@DATAL  r_wdt      FF4DEH    00000H
+                  @@DATAL  FAL_DESCR
+                                      FF4DEH    00000H
+                  @@DATAL  EEL_DESCRIPTOR
+                                      FF4DEH    00000H
+                  @@DATAL  @rom       FF4DEH    00000H
+         @@BITS                       FF4DEH    00000H  BSEG
+                  @@BITS   @cstart    FF4DEH.0  00000H.0
+                  @@BITS   r_main     FF4DEH.0  00000H.0
+                  @@BITS   r_usermain
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_userinit
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_dali     FF4DEH.0  00000H.0
+                  @@BITS   r_dali_user
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_dali_analyze
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_dali_command
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_dali_timer
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_dali_memorybank
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_dali_variable
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_timer    FF4DEH.0  00000H.0
+                  @@BITS   r_led      FF4DEH.0  00000H.0
+                  @@BITS   r_led1     FF4DEH.0  00000H.0
+                  @@BITS   r_led2     FF4DEH.0  00000H.0
+                  @@BITS   r_led3     FF4DEH.0  00000H.0
+                  @@BITS   r_led_user
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_systeminit
+                                      FF4DEH.0  00000H.0
+                  @@BITS   r_cgc      FF4DEH.0  00000H.0
+                  @@BITS   r_lvd      FF4DEH.0  00000H.0
+                  @@BITS   r_wdt      FF4DEH.0  00000H.0
+                  @@BITS   FAL_DESCR
+                                      FF4DEH.0  00000H.0
+                  @@BITS   EEL_DESCRIPTOR
+                                      FF4DEH.0  00000H.0
+* gap *                               FF4DEH    00942H
+
+  MEMORY=RAM_SADDR
+  BASE ADDRESS=FFE20H   SIZE=000C0H
+         OUTPUT   INPUT    INPUT      BASE      SIZE
+         SEGMENT  SEGMENT  MODULE     ADDRESS
+         EEL_SDAT                     FFE20H    00009H  DSEG
+                  EEL_SDAT eel_data   FFE20H    00009H
+* gap *                               FFE29H    00001H
+         FAL_DATA                     FFE2AH    00002H  DSEG
+                  FAL_DATA fal_data   FFE2AH    00002H
+         @@DATS                       FFE2CH    00044H  DSEG SADDRP
+                  @@DATS   @cstart    FFE2CH    00000H
+                  @@DATS   r_main     FFE2CH    00000H
+                  @@DATS   r_usermain
+                                      FFE2CH    00000H
+                  @@DATS   r_userinit
+                                      FFE2CH    00000H
+                  @@DATS   r_dali     FFE2CH    00000H
+                  @@DATS   r_dali_user
+                                      FFE2CH    00000H
+                  @@DATS   r_dali_analyze
+                                      FFE2CH    00000H
+                  @@DATS   r_dali_command
+                                      FFE2CH    00000H
+                  @@DATS   r_dali_timer
+                                      FFE2CH    00000H
+                  @@DATS   r_dali_memorybank
+                                      FFE2CH    00000H
+                  @@DATS   r_dali_variable
+                                      FFE2CH    00000H
+                  @@DATS   r_timer    FFE2CH    00000H
+                  @@DATS   r_led      FFE2CH    0003EH
+                  @@DATS   r_led1     FFE6AH    00002H
+                  @@DATS   r_led2     FFE6CH    00002H
+                  @@DATS   r_led3     FFE6EH    00002H
+                  @@DATS   r_led_user
+                                      FFE70H    00000H
+                  @@DATS   r_systeminit
+                                      FFE70H    00000H
+                  @@DATS   r_cgc      FFE70H    00000H
+                  @@DATS   r_lvd      FFE70H    00000H
+                  @@DATS   r_wdt      FFE70H    00000H
+                  @@DATS   FAL_DESCR
+                                      FFE70H    00000H
+                  @@DATS   EEL_DESCRIPTOR
+                                      FFE70H    00000H
+                  @@DATS   @rom       FFE70H    00000H
+* gap *                               FFE70H    00064H
+         @@SEGREG                     FFED4H    00004H  DSEG AT
+                  @@SEGREG @SEGREG    FFED4H    00004H
+         @@RTARG0                     FFED8H    00008H  DSEG AT
+                  @@RTARG0 @RTARG0    FFED8H    00008H
+
+
+ Target chip : R5F107DE
+ Device file : V1.02
+

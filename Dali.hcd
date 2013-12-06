@@ -1,0 +1,108 @@
+<?xml version='1.0'?>
+<AppliletEZ>
+	<Application>
+		<Name value='Application EZ for HCD'/>
+		<Version value='5'/>
+	</Application>
+
+	<Target name='EZ-0012'>
+		<CPU device='R5F107DE'>
+			<Clock value='1' frequency='32' >
+				<list type='1' name='Internal osc.' frequency='32' />
+			</Clock>
+			<OCD value='1'/>
+			<DFFile value='DR5F107DE.DVF'/>
+			<PRMFile value='TOOLS\PRM\R5F107DE.pr5'/>
+		</CPU>
+		<Control>
+			<Step min='0' max='255' />
+			<Channel ch='1' enable='1' fixedcolor='255' />
+			<Channel ch='2' enable='1' fixedcolor='65280' />
+			<Channel ch='3' enable='1' fixedcolor='16711680' />
+			<Channel ch='4' enable='0' color='0' />
+			<ANI enable='1' ch='19,6,7' />
+			<DIRECT enable='1' />
+			<PROGRAM enable='1' />
+			<UART0 enable='0' />
+			<UART1 enable='1' />
+			<UART6 enable='0' />
+			<CSI enable='0' />
+			<IIC enable='0' />
+			<DMX512 enable='1' />
+			<DALI enable='1' />
+			<SW enable='0' />
+			<IR enable='1' />
+		</Control>
+	</Target>
+
+	<HCDControler>
+		<Dimmer mode='DALI' sync='0' dimmingcurve='log' />
+		<IR_CustomCode>0x0000</IR_CustomCode>
+		<IR_DataCode>0x5A</IR_DataCode>
+		<HCD ch='1' relation='PWM1' duty='' />
+	</HCDControler>
+
+	<Property>
+		<UARTx>
+			<Speed value='9600' text='9600bps' />
+			<DataBit value='8' text='8bits' />
+			<Parity  value='2' text='Odd' />
+			<StartBit value='1' text='1bit' />
+			<StartBit value='1' text='1bit' />
+		</UARTx>
+		<DMX512>
+			<Channel ch='1' assign='1'/>
+			<Channel ch='2' assign='2'/>
+			<Channel ch='3' assign='3'/>
+			<Channel ch='4' assign='4'/>
+			<Status  assign='0'/>
+		</DMX512>
+
+		<DALI ch='0'>
+			<Version value='1' />
+			<ShortAddress value='255' />
+			<RandomAddress value='16777215' />
+			<PhysicalMinLevel value='1' />
+			<PowerOnLevel value='254' />
+			<SystemFailureLevel value='254' />
+			<MinLevel value='1' />
+			<MaxLevel value='254' />
+			<FadeRate value='7' />
+			<FadeTime value='0' />
+			<Group value='0' />
+		</DALI>
+
+		<DALI ch='1'>
+			<Version value='1' />
+			<ShortAddress value='255' />
+			<RandomAddress value='16777215' />
+			<PhysicalMinLevel value='1' />
+			<PowerOnLevel value='254' />
+			<SystemFailureLevel value='254' />
+			<MinLevel value='1' />
+			<MaxLevel value='254' />
+			<FadeRate value='7' />
+			<FadeTime value='0' />
+			<Group value='0' />
+		</DALI>
+
+		<DALI ch='2'>
+			<Version value='1' />
+			<ShortAddress value='255' />
+			<RandomAddress value='16777215' />
+			<PhysicalMinLevel value='1' />
+			<PowerOnLevel value='254' />
+			<SystemFailureLevel value='254' />
+			<MinLevel value='1' />
+			<MaxLevel value='254' />
+			<FadeRate value='7' />
+			<FadeTime value='0' />
+			<Group value='0' />
+		</DALI>
+
+	</Property>
+
+	<Vars>
+	</Vars>
+
+</AppliletEZ>

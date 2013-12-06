@@ -1,0 +1,111 @@
+P:[Notice]
+  (--%)Loading project ...
+P:[Notice]
+  (25%)Loading project ...
+P:[Notice]
+  (50%)Loading project ...
+P:[Notice]
+  (75%)Loading project ...
+P:[Notice]
+  (100%)Loading project ...
+P:[Notice]
+  (100%)Loading project ...
+>>>[Warning]
+========== Difference information about project ==========
+
+[Warning]
+Dali: 
+
+[Warning]
+CA78K0R V1.20 -> V1.30
+
+[Warning]
+========================================
+
+[Information]Build Tool
+
+[Information]Build Tool
+========== Start build all(07 December 2013 00:01:03) ==========
+
+[Information]Build Tool
+------ Start build(Dali, DefaultBuild) ------
+
+[Information]Build Tool
+>src\r_main.c
+
+[Information]Build Tool
+>src\r_usermain.c
+
+[Information]Build Tool
+>src\r_userinit.c
+
+[Information]Build Tool
+>src\r_dali.c
+
+[Information]Build Tool
+>src\r_dali_user.c
+
+[Information]Build Tool
+>src\r_dali_analyze.c
+
+[Information]Build Tool
+>src\r_dali_command.c
+
+[Information]Build Tool
+>src\r_dali_timer.c
+
+[Information]Build Tool
+>src\r_dali_memorybank.c
+
+[Information]Build Tool
+>src\r_dali_variable.c
+
+[Information]Build Tool
+>src\r_timer.c
+
+[Information]Build Tool
+>src\r_led.c
+
+[Information]Build Tool
+>src\r_led1.c
+
+[Information]Build Tool
+>src\r_led2.c
+
+[Information]Build Tool
+>src\r_led3.c
+
+[Information]Build Tool
+>src\r_led_user.c
+
+[Information]Build Tool
+>src\r_systeminit.c
+
+[Information]Build Tool
+>src\r_cgc.c
+
+[Information]Build Tool
+>src\r_lvd.c
+
+[Information]Build Tool
+>src\r_wdt.c
+
+[Information]Build Tool
+>eel_re\smp\fdl_descriptor.c
+
+[Information]Build Tool
+>eel_re\smp\eel_descriptor.c
+
+[Information]Build Tool
+>obj\Dali.lmf
+
+[Information]Build Tool
+>Dali.hex
+
+[Information]Build Tool
+------ Build ended(Error:0, Warning:0) ------
+
+[Information]Build Tool
+========== Ended(Success:1 Projects, Failed:0 Projects)(07 December 2013 00:01:47) ==========
+
+
