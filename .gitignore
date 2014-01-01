@@ -1,0 +1,11 @@
+.gitignore
+Dali/DefaultBuild/
+Dali/*.hex
+Dali/*.sym
+Dali/*.map
+*.swp
+*~
+Dali/obj/
+*.rar
+tags
+Dali/*.mtud
