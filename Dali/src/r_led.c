@@ -237,6 +237,7 @@ __interrupt void LED_FeedbackOperation(void)
 	#define PGA_OUTPUT 		3
 
 	unsigned short ucCount;
+	unsigned int adcvalue[3];
 
 	feedback += 1;		// Increment feedback counter
 	switch (feedback)
@@ -258,10 +259,21 @@ __interrupt void LED_FeedbackOperation(void)
 				ADCS = ON;				// start ADC
 
 				while (!ADIF){}
-				getvalue = ADCR;			// Read A/D result
+				adcvalue[0] = ADCR;			// Read A/D result
+				//ADCS = OFF;				// Stop ADC
+				ADIF = 0;				// Clear ADC interrupt flag
+
+				while (!ADIF){}
+				adcvalue[1] = ADCR;			// Read A/D result
+				//ADCS = OFF;				// Stop ADC
+				ADIF = 0;				// Clear ADC interrupt flag
+
+				while (!ADIF){}
+				adcvalue[2] = ADCR;			// Read A/D result
 				ADCS = OFF;				// Stop ADC
 				ADIF = 0;				// Clear ADC interrupt flag
 
+				getvalue = (adcvalue[0] + adcvalue[1] + adcvalue[2])/3;
 				temp11 = VR1 - (FB_LEDAD1_old - offsetLED1);
 				ErrLED1 = A2 * temp11;			// Calculate "A2 x E(n-1)" of PI control
 				FB_LEDAD1 = (getvalue >> 6) & 0x03FE;
