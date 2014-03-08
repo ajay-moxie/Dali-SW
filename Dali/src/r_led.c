@@ -168,12 +168,12 @@ Exported global variables and functions (to be accessed by other files)
 	TKBCTL20= 0x0000;	/* TKB2 output gate function, PWM soft start,
 							 PWM dither, maximum frequency ALL OFF */
 
-	TKBIOC00= 0b00000000;/* TKB0 active high, Low level (normal output) */
+	TKBIOC00= 0b00000101;/* TKB0 active high, Low level (normal output) */
 	TKBIOC01= 0b00000011;/* TKB0 timer output enabled */
 	TKBIOC10= 0b00000000;/* TKB1 active high, Low level (normal output) */
 	TKBIOC11= 0b00000001;/* TKB1 timer output enabled */
 
-	TKBCR01	= 0;		/* TKBO00 output LOW */
+	TKBCR01	= 000;		/* TKBO00 output LOW */
 	TKBCR02	= 0;		/* TKBO01 output HIGH */
 	TKBCR03	= 0;		/* TKBO01 output LOW */
 	TKBCR00	= FREQUENCY;/* TKBO00, 01 cycle period */
