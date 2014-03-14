@@ -199,6 +199,17 @@ Exported global variables and functions (to be accessed by other files)
 	feedback		= 0;/* Initialize feedback counter */
 }
 
+unsigned int calculate_dithering_duty_cycle(unsigned long duty_param)
+{
+	unsigned int duty_tbcr, duty_tkdbn, duty_cycle;
+	duty_tbcr = (unsigned int)(duty_param >> 8) & 0xFF00;
+	duty_tbcr = (duty_tbcr >> 8) & 0xFF;
+	duty_tkdbn = (unsigned int)(duty_param >> 8);
+	duty_tkdbn = (duty_tkdbn >> 4) & 0x000F;
+	duty_cycle = (duty_tbcr * 100)/(FREQUENCY + 1);// + (duty_tkdbn_led1 * (FREQUENCY + 1) * 100)/(16*(FREQUENCY + 1));
+	return duty_cycle;
+				
+}
 /*
 **-----------------------------------------------------------------------------
 **
