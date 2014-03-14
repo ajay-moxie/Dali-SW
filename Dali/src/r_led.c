@@ -72,8 +72,11 @@ sreg signed long	ErrLED1,ErrLED2,ErrLED3;
 
 /* Parameter A1/A2 used for PI feedback method */
 // const signed long	A1 = 185,A2 = 32;
-#define A1	(long)185
-#define A2	(long)32
+#define A1	(long)50
+#define A2	(long)1
+
+/*#define A1	(long)185
+#define A2	(long)32*/
 
 unsigned char
 	feedback_offset,		/* Feedback counter (used to calculate feedback 
