@@ -252,7 +252,6 @@ __interrupt void LED_FeedbackOperation(void)
 	unsigned short ucCount;
 	unsigned int adcvalue[3];
 
-	feedback += 1;		// Increment feedback counter
 
 	#ifdef DEBUG_LED_PI
 	unsigned static int test_adcin[DEBUG_LED_PI_WIDTH];
@@ -261,6 +260,7 @@ __interrupt void LED_FeedbackOperation(void)
 	int count;
 	#endif
 
+	feedback += 1;		// Increment feedback counter
 	switch (feedback)
 	{
 		/* LED1 Feedback Processing */
