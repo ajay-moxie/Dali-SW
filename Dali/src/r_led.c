@@ -251,6 +251,7 @@ __interrupt void LED_FeedbackOperation(void)
 
 	unsigned short ucCount;
 	unsigned int adcvalue[3];
+	unsigned int duty_factor_led1 = 0;
 
 
 	#ifdef DEBUG_LED_PI
@@ -294,10 +295,34 @@ __interrupt void LED_FeedbackOperation(void)
 				ADCS = OFF;				// Stop ADC
 				ADIF = 0;				// Clear ADC interrupt flag
 
-				getvalue = (adcvalue[0] + adcvalue[1] + adcvalue[2])/3;
+				getvalue = (adcvalue[2]);// + adcvalue[1] + adcvalue[2])/3;
+				
 				temp11 = VR1 - (FB_LEDAD1_old - offsetLED1);
 				ErrLED1 = A2 * temp11;			// Calculate "A2 x E(n-1)" of PI control
 				FB_LEDAD1 = (getvalue >> 6) & 0x03FE;
+				
+								
+				
+				/*Compensate for duty cycle*/
+				
+				/*duty_tbcr_led1 = (unsigned int)(Duty_LED1 >> 8) & 0xFF00;
+				duty_tbcr_led1 = (duty_tbcr_led1 >> 8) & 0xFF;
+				duty_tkdbn_led1 = (unsigned int)(Duty_LED1 >> 8);
+				duty_tkdbn_led1 = (duty_tkdbn_led1 >> 4) & 0x000F;
+				
+				duty_factor_led1 = (duty_tbcr_led1 * 100)/(FREQUENCY + 1);// + (duty_tkdbn_led1 * (FREQUENCY + 1) * 100)/(16*(FREQUENCY + 1));
+				*/
+				
+				duty_factor_led1 = calculate_dithering_duty_cycle(Duty_LED1);
+
+				if((duty_factor_led1 > 0) && ((signed int)(FB_LEDAD1 - offsetLED1) > 0))
+				{
+					unsigned long temp;
+					temp = ((unsigned long) FB_LEDAD1 * 100);
+					temp = temp / duty_factor_led1;
+					FB_LEDAD1 = temp;
+				}
+
 				if (feedback_offset == 0)
 				{
 					offsetLED1 = FB_LEDAD1;		// Calculate offset value for LED1 feedback when LED is off (only 1 time at start-up)
