@@ -318,7 +318,17 @@ __interrupt void LED_FeedbackOperation(void)
 					{
 						Duty_LED1 = 0;			// Set duty for LED1 to 0
 					}
-					TKBCRLD00 = (unsigned short)(Duty_LED1 >> 8);	// Upload duty in the dithering count register
+
+					/*Above 90% duty cycle no need to increase duty cycle further*/
+					if(duty_factor_led1 > 90)
+					{
+						/*is PI decreasing duty*/
+						if(calculate_dithering_duty_cycle(Duty_LED1) < duty_factor_led1)
+							TKBCRLD00 = (unsigned short)(Duty_LED1 >> 8);	// Upload duty in the dithering count register
+									
+					}
+					else
+						TKBCRLD00 = (unsigned short)(Duty_LED1 >> 8);	// Upload duty in the dithering count register
 				}
 				FB_LEDAD1_old = FB_LEDAD1;		// Save the LED1 feedback A/D result
 				TKBTRG0 = 1;
