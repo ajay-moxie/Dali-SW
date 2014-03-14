@@ -328,9 +328,10 @@ __interrupt void LED_FeedbackOperation(void)
 					offsetLED1 = FB_LEDAD1;		// Calculate offset value for LED1 feedback when LED is off (only 1 time at start-up)
 				}
 				/* Check if LED1 feedback current is over max */
-				if((FB_LEDAD1 - offsetLED1) >= MAXCHECK)
+				if((signed int)(FB_LEDAD1 - offsetLED1) >= MAXCHECK)
 				{
 					TKBCRLD00 = 0;			// Set PWM Duty to 0 when current is over MAX 400mA
+					Duty_LED1 = 0;
 				}
 				else
 				{
