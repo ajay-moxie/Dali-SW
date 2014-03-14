@@ -242,6 +242,14 @@ __interrupt void LED_FeedbackOperation(void)
 	unsigned int adcvalue[3];
 
 	feedback += 1;		// Increment feedback counter
+
+	#ifdef DEBUG_LED_PI
+	unsigned static int test_adcin[DEBUG_LED_PI_WIDTH];
+	unsigned static int adc_average;
+	static unsigned int adc_count = 0;
+	int count;
+	#endif
+
 	switch (feedback)
 	{
 		/* LED1 Feedback Processing */
