@@ -32,6 +32,8 @@
 #pragma	EI
 #pragma	DI
 #pragma	NOP
+#define DEBUG_LED_PI
+#define DEBUG_LED_PI_WIDTH 20
 
 /******************************************************************************
 Includes <System Includes> , ÅgProject IncludesÅh
@@ -321,6 +323,22 @@ __interrupt void LED_FeedbackOperation(void)
 				FB_LEDAD1_old = FB_LEDAD1;		// Save the LED1 feedback A/D result
 				TKBTRG0 = 1;
 				NOP();
+				#ifdef DEBUG_LED_PI
+				count = adc_count%DEBUG_LED_PI_WIDTH;
+				test_adcin[count] = FB_LEDAD1;
+				if(count == 0)
+				{
+					adc_average = 0;
+				}
+				adc_average = adc_average + (test_adcin[count]);
+				adc_count++;
+				//adc_count %= DEBUG_LED_PI_WIDTH;
+				if(adc_count == 10000)
+				{
+					adc_count = 0;
+					adc_average = adc_average/DEBUG_LED_PI_WIDTH;
+				}
+				#endif
 
 				PGAEN = 0;				// Stop PGA
 			}
