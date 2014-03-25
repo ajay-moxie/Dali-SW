@@ -49,8 +49,6 @@ void user_main( void )
 {
 	uint8_t ch1_level;
 
-	DALI_ReceiveCommand( );
-
 	/* Get new level via DALI interface */
 	ch1_level = DALI_getValue( 1 );
 
