@@ -34,7 +34,7 @@
 #pragma EI
 
 #define __DALI_C__
-
+#pragma interrupt	INTSRDL4 DALI_ReceiveCommand
 /******************************************************************************
 Includes <System Includes> , ÅgProject IncludesÅh
 ******************************************************************************/
@@ -209,8 +209,8 @@ void DALI_init( void )
 	SRDLIF4	= 0;							/* interrupt flg clear				*/
 	SREDLIF4= 0;							/* interrupt flg clear				*/
 	STDLMK4	= 1;							/* INTSTDL4 interrupt disable		*/
-	SRDLMK4	= 1;							/* INTSRDL4 interrupt disable		*/
-	SREDLMK4= 1;							/* INTSREDL4 interrupt disable		*/
+	SRDLMK4	= 0;							/* INTSRDL4 interrupt disable		*/
+	SREDLMK4= 0;							/* INTSREDL4 interrupt disable		*/
 
 	SS4		= 0x0003;						/* start UART4 ch.0 and 1			*/
 }
@@ -278,31 +278,31 @@ void DALI_ActualLevelChangecheck( uint8_t channel )
 * Argument : none
 * Return Value : none
 ******************************************************************************/
-void DALI_ReceiveCommand( void )
+__interrupt void DALI_ReceiveCommand( void )
 {
 	uint16_t received_data;
 	uint16_t received_status;
+	int ucCount;
 
-	if (SRDLIF4 || SREDLIF4) {
-		received_status = SSR41;
-		received_data	= SDCL4;
-		if ( received_status & 0x87) {
-			SIR41			= received_status;
-		} else if ( received_status & 0x20) {
-			DALI_ProhibitReception(received_data);
+	received_status = SSR41;
+	received_data	= SDCL4;
 
-			for (dali_led_number=0; dali_led_number<NUMBER_OF_CHANNEL; dali_led_number++){
-				if (enable_channel[dali_led_number]==0) continue;		/* This channel is not use. */
-				dali_current_variable = &dali_variable[dali_led_number];
-				DALI_AnalyzeCommand(received_data);
-			}
-			if (dali_answer_ready==TRUE){
-				DALI_StartTimer( TIMER_WAIT_ANSWER );
-			}
+	if ( received_status & 0x87) {
+		SIR41			= received_status;
+	} else if ( received_status & 0x20) {
+		DALI_ProhibitReception(received_data);
+
+		for (dali_led_number=0; dali_led_number<NUMBER_OF_CHANNEL; dali_led_number++){
+			if (enable_channel[dali_led_number]==0) continue;		/* This channel is not use. */
+			dali_current_variable = &dali_variable[dali_led_number];
+			DALI_AnalyzeCommand(received_data);
 		}
-		SRDLIF4	= 0;
-		SREDLIF4= 0;
+		if (dali_answer_ready==TRUE){
+			DALI_StartTimer( TIMER_WAIT_ANSWER );
+		}
 	}
+	SRDLIF4	= 0;
+	SREDLIF4= 0;
 }
 
 /******************************************************************************
