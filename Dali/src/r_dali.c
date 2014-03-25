@@ -183,8 +183,8 @@ void DALI_init( void )
 	SMR40	= 0x0022;						/* set DALI(Tx) mode				*/
 	SMR41	= 0x0122;						/* set DALI(Rx) mode				*/
 
-	SCR40	= 0x8027;						/* set DALI(Tx) mode				*/
-	SCR41	= 0x4426; 						/* set DALI(Rx) mode				*/
+	SCR40	= 0x8026;						/* set DALI(Tx) mode				*/
+	SCR41	= 0x4427; 						/* set DALI(Rx) mode				*/
 
 	SDR40	= 0xCE00;						/* Tx 1202 bps */
 	SDR41	= 0xCE00;						/* Rx 1202 bps */
