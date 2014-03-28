@@ -35,6 +35,7 @@
 
 #define __DALI_C__
 #pragma interrupt	INTSRDL4 DALI_ReceiveCommand
+#pragma interrupt	INTSTDL4 DALI_SendIntr
 /******************************************************************************
 Includes <System Includes> , ÅgProject IncludesÅh
 ******************************************************************************/
@@ -208,7 +209,7 @@ void DALI_init( void )
 	STDLIF4	= 0;							/* interrupt flg clear				*/
 	SRDLIF4	= 0;							/* interrupt flg clear				*/
 	SREDLIF4= 0;							/* interrupt flg clear				*/
-	STDLMK4	= 1;							/* INTSTDL4 interrupt disable		*/
+	STDLMK4	= 0;							/* INTSTDL4 interrupt disable		*/
 	SRDLMK4	= 0;							/* INTSRDL4 interrupt disable		*/
 	SREDLMK4= 0;							/* INTSREDL4 interrupt disable		*/
 
@@ -270,6 +271,28 @@ void DALI_ActualLevelChangecheck( uint8_t channel )
 		}
 	}
 
+}
+
+/******************************************************************************
+* Function Name : DALI_SendCommand
+* Description : DALI command send.
+* Argument : Command
+* Return Value : none
+******************************************************************************/
+void DALI_SendCommand(uint16_t Command)
+{
+	SDTL4 = (uint16_t)Command;
+}
+
+/******************************************************************************
+* Function Name : DALI_INT_Receive
+* Description : Interrupt handler to receive DALI command.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+__interrupt void DALI_SendIntr( void )
+{
+	STDLIF4 = 0;
 }
 
 /******************************************************************************

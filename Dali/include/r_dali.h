@@ -119,5 +119,6 @@ void DALI_CheckActualLevelChanged( uint8_t channel );
 void DALI_SetSystemFailure( uint8_t channel );
 void DALI_ResetValue( void );
 void DALI_CheckReset( void );
+void DALI_SendCommand(uint16_t Command);
 
 #endif
