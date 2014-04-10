@@ -65,7 +65,7 @@ static uint8_t timecount_interface_failure;
 static uint8_t timecount_prohibit_reception;
 static uint8_t timecount_10ms;
 static uint32_t timecount_totaltime;
-
+static struct timer dali_timeout;
 
 /******************************************************************************
 * Function Name : DALI_InitTimer
@@ -94,97 +94,62 @@ void DALI_InitTimer( void )
 
 	CLR_ANSWER;
 
-	Timer_StartInterval_1ms(DALI_Interval);
-	
+	dali_timeout.timecount_4ms = 0;
+	dali_timeout.timecount_8ms = 0;
+	dali_timeout.timecount_10ms = 0;
+	dali_timeout.timecount_50ms = 0;
+	dali_timeout.timecount_100ms = 0;
+	dali_timeout.timecount_15min = 0;
+	dali_timeout.timecount_totaltime = 0;
+
+	dali_timeout.func_timecount_4ms = (fn_t)0;
+	dali_timeout.func_timecount_8ms = (fn_t)0;
+	dali_timeout.func_timecount_10ms = (fn_t)0;
+	dali_timeout.func_timecount_50ms = (fn_t)0;
+	dali_timeout.func_timecount_100ms = (fn_t)0;
+	dali_timeout.func_timecount_15min = (fn_t)0;
+	Timer_StartInterval_1ms(DALI_Counter);
 }
 
+
 /******************************************************************************
-* Function Name : DALI_Interval
+* Function Name : DALI_counter
 * Description : Interval timer process.
 * Argument : none
 * Return Value : none
 ******************************************************************************/
-void DALI_Interval( void )
+void DALI_Counter( void )
 {
-	uint8_t i;
-
-	/* ----- 1ms interval -----*/
-	timecount_totaltime++;
-
-	/* Check timer for send answer. */
-	if ( timecount_answer != 0 ){
-		timecount_answer--;
-		if ( timecount_answer == 0 ){
-			/* Send answer */
-			SDTL4 = ((uint16_t)dali_answer) & 0x00FF;
-			CLR_ANSWER;
-		}
+	dali_timeout.timecount_totaltime++;
+	if(dali_timeout.timecount_4ms){
+		dali_timeout.timecount_4ms--;
+		if((dali_timeout.func_timecount_4ms) && (dali_timeout.timecount_4ms == 0))
+			dali_timeout.func_timecount_4ms();
 	}
-
-	if ( timecount_prohibit_reception !=0 ){
-		timecount_prohibit_reception--;
-		if (timecount_prohibit_reception == 0){
-			SS4 = 0x02;	 /* start reception */
-		}
+	if(dali_timeout.timecount_8ms){
+		dali_timeout.timecount_8ms--;
+		if((dali_timeout.func_timecount_8ms) && (dali_timeout.timecount_8ms == 0))
+			dali_timeout.func_timecount_8ms();
 	}
-
-	timecount_10ms--;
-	if ( timecount_10ms == 0 ){
-		timecount_10ms = 10;
-		
-		/* ----- 10ms interval -----*/
-		for (i=0; i<NUMBER_OF_CHANNEL; i++){
-			if (fade_count[i]>0){
-				fade_steps[i] += fade_steps_per_10ms[i];
-				while(fade_steps[i]>=0x10000){
-					DALI_Fading(i);
-					fade_steps[i] -= 0x10000;
-				}
-				fade_count[i]--;
-				if (fade_count[i] == 0){
-					STATUS_FADE_RUNNING(i) 	= BIT_CLR;
-				}
-			}
-
-			/* Check command receive interval */
-			if ( timecount_rcv_command[i] != 0 ){
-				timecount_rcv_command[i]--;
-			}
-
-			/* Check for DAPC sequence */
-			if ( timecount_dapc_sequence[i] != 0 ){
-				timecount_dapc_sequence[i]--;
-			}
-
-			/* Check addressing period */
-			if ( timecount_addressing[i] != 0 ){
-				timecount_addressing[i]--;
-				if (timecount_addressing[i]==0){
-					dali_physical_selected = FALSE;
-				}
-			}
-
-			/* Check to save value of actual level. */
-			if ( timecount_actual_unchange[i] != 0 ){
-				timecount_actual_unchange[i]--;
-			}
-		}
-
-		/* check interface failure */
-		if ( P1.1 == 0 ){
-			if (timecount_interface_failure>0){
-				timecount_interface_failure--;
-				if (timecount_interface_failure==0){
-					/* System failure at all channel */
-					for (i=0; i<NUMBER_OF_CHANNEL; i++){
-						DALI_SetSystemFailure(i);
-					}
-				}
-			}
-		}else{
-			timecount_interface_failure = TIME_INTERFACE_FAILURE;
-		}
-		
+	if(dali_timeout.timecount_10ms){
+		dali_timeout.timecount_10ms--;
+		if((dali_timeout.func_timecount_10ms) && (dali_timeout.timecount_10ms == 0))
+			dali_timeout.func_timecount_10ms();
+	}
+	if(dali_timeout.timecount_50ms){
+		dali_timeout.timecount_50ms--;
+		if((dali_timeout.func_timecount_50ms) && (dali_timeout.timecount_50ms == 0))
+			dali_timeout.func_timecount_50ms();
+	}
+	if(dali_timeout.timecount_100ms){
+		dali_timeout.timecount_100ms--;
+		if((dali_timeout.func_timecount_100ms) && (dali_timeout.timecount_100ms == 0))
+			dali_timeout.func_timecount_100ms();
+	}
+	if(dali_timeout.timecount_15min){
+		dali_timeout.timecount_15min--;
+		if((dali_timeout.func_timecount_15min) && (dali_timeout.timecount_15min == 0))
+			dali_timeout.func_timecount_15min();
 	}
 
 }
@@ -195,37 +160,29 @@ void DALI_Interval( void )
 * Argument : type
 * Return Value : none
 ******************************************************************************/
-void DALI_StartTimer( uint8_t type )
+void DALI_StartTimer( uint16_t type )
 {
 	DI();
 
 	switch ( type ){
-		case TIMER_WAIT_ANSWER:
-			if (timecount_answer==0){
-				timecount_answer = TIME_WAIT_ANSWER;	/* 3-9ms */	
-			}
+		case MS_4:
+			dali_timeout.timecount_4ms = MS_4;
 			break;
-		
-		case TIMER_PROHIBIT_RECEPTION:
-			timecount_prohibit_reception = TIME_PROHIBIT_RECEPTION;
+		case MS_8:
+			dali_timeout.timecount_8ms = MS_8;
 			break;
-
-		case TIMER_CMD:
-			timecount_rcv_command[dali_led_number] = TIME_RECEIVE_INTERVAL;		/* 100ms */
+		case MS_10:
+			dali_timeout.timecount_10ms = MS_10;
 			break;
-		
-		case TIMER_ADDRESSING_PERIOD:
-			timecount_addressing[dali_led_number] = TIME_ADDRESSING_PERIOD;		/* 15 minuites */
+		case MS_50:
+			dali_timeout.timecount_50ms = MS_50;
 			break;
-		
-		case TIMER_DAPC_INTERVAL:
-			timecount_dapc_sequence[dali_led_number] = TIME_DAPCSEQUENCE_CMD;	/* 200ms */
+		case MS_100:
+			dali_timeout.timecount_100ms = MS_100;
 			break;
-			
-		case TIMER_ACTUAL_SAVING:
-			timecount_actual_unchange[dali_actualSaveChannel] = TIME_SAVE_ACTUAL;		/* 500ms set */
+		case MIN_15:
+			dali_timeout.timecount_15min = MIN_15;
 			break;
-		
 		default:
 			break;
 	}
@@ -240,41 +197,33 @@ void DALI_StartTimer( uint8_t type )
 * Argument : type
 * Return Value : none
 ******************************************************************************/
-void DALI_StopTimer( uint8_t type )
+void DALI_StopTimer( uint16_t type )
 {
 	DI();
 
 	switch ( type ){
-		case TIMER_WAIT_ANSWER :
-			timecount_answer = 0;
+		case MS_4:
+			dali_timeout.timecount_4ms = 0;
 			break;
-
-/** Not use
-		case TIMER_PROHIBIT_RECEPTION:
-			timecount_prohibit_reception = 0;
+		case MS_8:
+			dali_timeout.timecount_8ms = 0;
 			break;
-**/
-
-		case TIMER_CMD:
-			timecount_rcv_command[dali_led_number] = 0;
+		case MS_10:
+			dali_timeout.timecount_10ms = 0;
 			break;
-		
-		case TIMER_ADDRESSING_PERIOD:
-			timecount_addressing[dali_led_number] = 0;
-			dali_physical_selected = FALSE;
+		case MS_50:
+			dali_timeout.timecount_50ms = 0;
 			break;
-		
-		case TIMER_DAPC_INTERVAL:
-			timecount_dapc_sequence[dali_led_number] = 0;
+		case MS_100:
+			dali_timeout.timecount_100ms = 0;
 			break;
-			
-		case TIMER_ACTUAL_SAVING:
-			timecount_actual_unchange[dali_actualSaveChannel] = 0;
+		case MIN_15:
+			dali_timeout.timecount_15min = 0;
 			break;
-			
 		default:
 			break;
 	}
+
 
 	EI();
 }
@@ -285,52 +234,38 @@ void DALI_StopTimer( uint8_t type )
 * Argument : type:timer mode
 * Return Value : TRUE:running  FALSE:stopped
 ******************************************************************************/
-uint8_t DALI_IsTimerRunning( uint8_t type )
+uint8_t DALI_IsTimerRunning( uint16_t type )
 {
 	uint8_t ret = FALSE;
-	
+
 	switch ( type ){
-		case TIMER_WAIT_ANSWER :
-			if (timecount_answer!=0){
+		case MS_4:
+			if(dali_timeout.timecount_4ms)
 				ret = TRUE;
-			}
 			break;
-		
-/** Not use
-		case TIMER_PROHIBIT_RECEPTION:
-			if (timecount_prohibit_reception!=0){
+		case MS_8:
+			if(dali_timeout.timecount_8ms)
 				ret = TRUE;
-			}
 			break;
-**/
-		case TIMER_CMD:
-			if (timecount_rcv_command[dali_led_number]!=0){
+		case MS_10:
+			if(dali_timeout.timecount_10ms)
 				ret = TRUE;
-			}
 			break;
-		
-		case TIMER_ADDRESSING_PERIOD:
-			if (timecount_addressing[dali_led_number]!=0){
+		case MS_50:
+			if(dali_timeout.timecount_50ms)
 				ret = TRUE;
-			}
 			break;
-		
-		case TIMER_DAPC_INTERVAL:
-			if (timecount_dapc_sequence[dali_led_number]!=0){
+		case MS_100:
+			if(dali_timeout.timecount_100ms)
 				ret = TRUE;
-			}
 			break;
-			
-		case TIMER_ACTUAL_SAVING:
-			if (timecount_actual_unchange[dali_actualSaveChannel]!=0){
+		case MIN_15:
+			if(dali_timeout.timecount_15min)
 				ret = TRUE;
-			}
 			break;
-			
 		default:
 			break;
 	}
-
 	return ret;
 }
 
@@ -396,3 +331,34 @@ uint16_t DALI_GetRandomValue( uint16_t size )
 	return (timecount_totaltime & size);
 }
 
+/******************************************************************************
+* Function Name : DALI_RegisterTimer
+* Description : RegisterTimer.
+* Argument : size
+* Return Value : value
+******************************************************************************/
+void DALI_RegisterTimer(uint16_t type, fn_t func)
+{
+	switch ( type ){
+		case MS_4:
+			dali_timeout.func_timecount_4ms = func;
+			break;
+		case MS_8:
+			dali_timeout.func_timecount_8ms = func;
+			break;
+		case MS_10:
+			dali_timeout.func_timecount_10ms = func;
+			break;
+		case MS_50:
+			dali_timeout.func_timecount_50ms = func;
+			break;
+		case MS_100:
+			dali_timeout.func_timecount_100ms = func;
+			break;
+		case MIN_15:
+			dali_timeout.func_timecount_15min = func;
+			break;
+		default:
+			break;
+	}
+}

@@ -48,6 +48,8 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_dali_command.h"
 #include "r_dali_timer.h"
 #include "r_dali_variable.h"
+#include "r_dali_enumerate.h"
+#include "r_dali_slave.h"
 
 /******************************************************************************
 Imported global variables and functions (from other files)
@@ -218,6 +220,8 @@ void DALI_init( void )
 	SREDLMK4= 0;							/* INTSREDL4 interrupt disable		*/
 
 	SS4		= 0x0003;						/* start UART4 ch.0 and 1			*/
+	DALI_slave_initialize();
+	DALI_Enumerate(0);
 }
 
 /******************************************************************************
