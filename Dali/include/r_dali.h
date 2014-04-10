@@ -81,6 +81,7 @@ Macro definitions
 #define STATUS_RESET_STATE(ch)				dali_status[ch].status_bit.bit5		/* The status of the config data */
 #define STATUS_MISSING_SHORT_ADDRESS(ch)	dali_status[ch].status_bit.bit6		/* The status of the missing short address */
 #define STATUS_POWER_FAILURE(ch)			dali_status[ch].status_bit.bit7		/* The status of power failure */
+#define DALI_MAX_SLAVE	64
 
 /******************************************************************************
 Imported global variables and functions (from other files)
