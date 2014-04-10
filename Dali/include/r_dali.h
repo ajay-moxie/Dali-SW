@@ -120,5 +120,7 @@ void DALI_SetSystemFailure( uint8_t channel );
 void DALI_ResetValue( void );
 void DALI_CheckReset( void );
 void DALI_SendCommand(uint16_t Command);
+uint8_t DALI_ReadData( uint8_t *data );
+void DALI_TestReceive( uint8_t data );
 
 #endif

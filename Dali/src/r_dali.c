@@ -58,6 +58,10 @@ extern const uint8_t enable_channel[NUMBER_OF_CHANNEL];
 Exported global variables and functions (to be accessed by other files)
 ******************************************************************************/
 const uint8_t MASK_SAVE_REQUEST[4] = { 0x01,0x02,0x04,0x08 };
+static uint8_t dali_recv_circular_buff[DALI_MAX_SLAVE];
+static uint8_t dali_read_index = DALI_MAX_SLAVE - 1;
+static uint8_t dali_write_index = DALI_MAX_SLAVE - 1;
+
 
 uint8_t dali_actual_level[NUMBER_OF_CHANNEL];		/* Actual Level */
 uint8_t dali_actual_target[NUMBER_OF_CHANNEL];		/* for fading */
@@ -296,6 +300,30 @@ __interrupt void DALI_SendIntr( void )
 }
 
 /******************************************************************************
+* Function Name : DALI_TestReceive
+* Description : Test receive, it fills circular buffer for testing.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+void DALI_TestReceive( uint8_t data )
+{
+	dali_write_index = (dali_write_index + 1) % DALI_MAX_SLAVE;
+	dali_recv_circular_buff[dali_write_index] = (uint8_t)data;
+}
+/******************************************************************************
+* Function Name : DALI_INT_Receive
+* Description : Interrupt handler to receive DALI command.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+uint8_t DALI_ReadData( uint8_t *data )
+{
+	if(dali_write_index == dali_read_index)
+		return 0;
+	dali_read_index = (dali_read_index + 1) % DALI_MAX_SLAVE;
+	*data = dali_recv_circular_buff[dali_read_index];
+}
+/******************************************************************************
 * Function Name : DALI_INT_Receive
 * Description : Interrupt handler to receive DALI command.
 * Argument : none
@@ -313,16 +341,8 @@ __interrupt void DALI_ReceiveCommand( void )
 	if ( received_status & 0x87) {
 		SIR41			= received_status;
 	} else if ( received_status & 0x20) {
-		DALI_ProhibitReception(received_data);
-
-		for (dali_led_number=0; dali_led_number<NUMBER_OF_CHANNEL; dali_led_number++){
-			if (enable_channel[dali_led_number]==0) continue;		/* This channel is not use. */
-			dali_current_variable = &dali_variable[dali_led_number];
-			DALI_AnalyzeCommand(received_data);
-		}
-		if (dali_answer_ready==TRUE){
-			DALI_StartTimer( TIMER_WAIT_ANSWER );
-		}
+		dali_write_index = (dali_write_index + 1) % DALI_MAX_SLAVE;
+		dali_recv_circular_buff[dali_write_index] = (uint8_t)received_data;
 	}
 	SRDLIF4	= 0;
 	SREDLIF4= 0;
