@@ -7,6 +7,9 @@
 #ifndef __DALI_ANALYZE__
 #define __DALI_ANALYZE__
 
+enum command_type{
+	SPECIAL_COMMAND,
+};
 /******************************************************************************
 Macro definitions
 ******************************************************************************/
@@ -89,7 +92,14 @@ Macro definitions
 /******************************************************************************
 Exported global variables and functions (to be accessed by other files)
 ******************************************************************************/
+
+enum response{
+	YES = 0xFF, //also MASK
+	NO = 0x00,
+	NA = 0x81,
+};
 void DALI_AnalyzeCommand(uint16_t cmd_data);
+uint8_t DALI_AnalyzeResponse(uint8_t response, uint8_t type);
 uint8_t DALI_CheckConfigCommand( uint8_t cmd_data );
 
 #endif
