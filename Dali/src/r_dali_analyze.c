@@ -102,6 +102,25 @@ uint8_t DALI_Check2ndCommand( uint8_t command )
 }
 
 /******************************************************************************
+ * Function Name : DALI_AnalyzeResponse
+ * Description : Analyze the DALI response.
+ * Argument : dalicommand
+ * Return Value : none
+ ******************************************************************************/
+uint8_t DALI_AnalyzeResponse(uint8_t response, uint8_t type)
+{
+	uint8_t ret = NO;
+	switch( type ){
+		case SPECIAL_COMMAND:
+			if(response == YES)
+				ret = YES;
+			break;
+		default:
+			break;
+	}
+	return ret;
+}
+/******************************************************************************
  * Function Name : DALI_AnalyzeCommand
  * Description : Analyze the DALI command.
  * Argument : dalicommand
