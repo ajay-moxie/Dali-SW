@@ -176,12 +176,12 @@ static void DALI_4ms_timeout()
 			DALI_search_communication();
 			break;
 		case ADDRESS:
-			DALI_SendCommand((EXCOMMAND_PROGRAM_SHORT_ADDRESS << 8) | address);
+			DALI_SendCommand((EXCOMMAND_PROGRAM_SHORT_ADDRESS << 8) | ((address << 1) | 0x01));
 			state = VERIFY;
 			DALI_StartTimer(MS_4);
 			break;
 		case VERIFY:
-			DALI_SendCommand((EXCOMMAND_VERIFY_SHORT_ADDRESS << 8) | address);
+			DALI_SendCommand((EXCOMMAND_VERIFY_SHORT_ADDRESS << 8) | ((address << 1) | 0x01));
 			DALI_StartTimer(MS_8);
 			DALI_StartTimer(MS_10);
 			break;
