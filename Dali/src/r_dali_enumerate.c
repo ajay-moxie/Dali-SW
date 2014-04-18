@@ -55,7 +55,7 @@ static uint8_t DALI_search_address(uint8_t response, uint8_t *guess )
 	static uint8_t low;
 	uint8_t ret = NO;
 	if(response == YES){
-		if(high - last == 1)
+		if((high - last == 1) || (last - low == 1))
 		{
 			ret = YES;
 			*guess = last;
@@ -69,7 +69,11 @@ static uint8_t DALI_search_address(uint8_t response, uint8_t *guess )
 		last = *guess;
 	}
 	else if(response == NO){
-		*guess = (uint8_t)((uint16_t)high + (uint16_t)last) >> 1;
+		if(high - last == 1){
+			*guess = high;
+		}
+		else
+			*guess = (uint8_t)(((uint16_t)high + (uint16_t)last) >> 1);
 		low = last;
 		last = *guess;
 	}
@@ -99,6 +103,7 @@ static void DALI_search_communication()
 		if(DALI_search_address(response, &guess_address) == YES){
 			//Address guessed
 			state++;
+			response = YES; //
 			DALI_StartTimer(MS_4);
 			return;
 		}
