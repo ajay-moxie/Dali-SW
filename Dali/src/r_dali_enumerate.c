@@ -186,16 +186,22 @@ static void DALI_4ms_timeout()
 			DALI_StartTimer(MS_10);
 			break;
 		case WITHDRAW:
-			DALI_SendCommand((EXCOMMAND_PROGRAM_SHORT_ADDRESS << 8) | address);
+			DALI_SendCommand((EXCOMMAND_WITHRAW << 8) & 0xFF00);
 			response = NA;
 			address = DALI_get_new_slave_address();
-			slave.address = address;
-			slave.search_h = search_h;
-			slave.search_m = search_m;
-			slave.search_l = search_l;
-			DALI_set_slave_config(slave);
-			state = SEARCH_H;
-			search_substate = SUB_SEARCH_H;
+			if(address != 0xFF){
+				slave.address = address;
+				slave.search_h = search_h;
+				slave.search_m = search_m;
+				slave.search_l = search_l;
+				DALI_set_slave_config(slave);
+				state = SEARCH_H;
+				search_substate = SUB_SEARCH_H;
+			}
+			else{
+				state = TERMINATE;
+				search_substate = SUB_SEARCH_H;
+			}
 			search_h = 0xFF;
 			search_m = 0xFF;
 			search_l = 0xFF;
