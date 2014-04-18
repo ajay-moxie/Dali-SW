@@ -27,9 +27,9 @@ enum timermode { TIMER_WAIT_ANSWER,
 			   };
 
 enum timermode1 {
-	MS_4 = 4,
+	MS_4 = 25,
 	MS_8 = 8,
-	MS_10 = 10,
+	MS_10 = 30,
 	MS_50 = 50,
 	MS_100 = 100,
 	MIN_15 = 15000,
