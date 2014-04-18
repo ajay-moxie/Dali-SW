@@ -166,22 +166,22 @@ void DALI_StartTimer( uint16_t type )
 
 	switch ( type ){
 		case MS_4:
-			dali_timeout.timecount_4ms = MS_4;
+			dali_timeout.timecount_4ms = MS_4 + FORWARD_FRAME_SIZE;
 			break;
 		case MS_8:
-			dali_timeout.timecount_8ms = MS_8;
+			dali_timeout.timecount_8ms = MS_8 + FORWARD_FRAME_SIZE;
 			break;
 		case MS_10:
-			dali_timeout.timecount_10ms = MS_10;
+			dali_timeout.timecount_10ms = MS_10 + FORWARD_FRAME_SIZE;
 			break;
 		case MS_50:
-			dali_timeout.timecount_50ms = MS_50;
+			dali_timeout.timecount_50ms = MS_50 + FORWARD_FRAME_SIZE;
 			break;
 		case MS_100:
-			dali_timeout.timecount_100ms = MS_100;
+			dali_timeout.timecount_100ms = MS_100 + FORWARD_FRAME_SIZE;
 			break;
 		case MIN_15:
-			dali_timeout.timecount_15min = MIN_15;
+			dali_timeout.timecount_15min = MIN_15 + FORWARD_FRAME_SIZE;
 			break;
 		default:
 			break;

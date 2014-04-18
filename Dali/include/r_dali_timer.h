@@ -17,7 +17,7 @@ Macro definitions
 #define TIME_INTERFACE_FAILURE		50					/* x10ms:If disconnect interface until this time, set "SYSTEM FAILURE". */
 #define TIME_DAPCSEQUENCE_CMD		20					/* x10ms:DAPC command interval */
 #define TIME_ADDRESSING_PERIOD		90000				/* x10ms:Address setting period */
-
+#define FORWARD_FRAME_SIZE		16 //16ms
 enum timermode { TIMER_WAIT_ANSWER,
 				 TIMER_PROHIBIT_RECEPTION,
 				 TIMER_CMD,
