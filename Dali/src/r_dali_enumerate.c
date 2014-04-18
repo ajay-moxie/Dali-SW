@@ -230,7 +230,7 @@ static void DALI_4ms_timeout()
 static void DALI_8ms_timeout()
 {
 #ifdef DALI_ENUM_TEST
-	static slave_test_address = 124;
+	static uint8_t slave_test_address = 124;
 	uint8_t search_address;
 	switch( state ){
 		case SEARCH_H:
