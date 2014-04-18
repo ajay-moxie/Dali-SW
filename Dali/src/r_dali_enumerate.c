@@ -133,7 +133,7 @@ static void DALI_search_communication()
 			DALI_StartTimer(MS_4);
 			break;
 		case SUB_COMPARE:
-			DALI_SendCommand((EXCOMMAND_COMPARE << 8) & 0x0);
+			DALI_SendCommand((EXCOMMAND_COMPARE << 8) | 0x0);
 			search_substate = SUB_RESPONSE;
 			DALI_StartTimer(MS_8);
 			DALI_StartTimer(MS_10);
