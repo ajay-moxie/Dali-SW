@@ -5,7 +5,7 @@
 #include "r_dali_analyze.h"
 #include "r_dali_timer.h"
 #include "r_dali_slave.h"
-#define DALI_ENUM_TEST
+//#define DALI_ENUM_TEST
 static uint8_t state;
 static uint8_t search_substate;
 static uint8_t address;
