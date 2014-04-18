@@ -206,7 +206,7 @@ static void DALI_4ms_timeout()
 			search_m = 0xFF;
 			search_l = 0xFF;
 #ifdef DALI_ENUM_TEST
-			test_withdraw = YES;
+//			test_withdraw = YES;
 #endif
 			DALI_StartTimer(MS_4);
 			break;
@@ -259,17 +259,22 @@ static void DALI_8ms_timeout()
 #ifdef DALI_ENUM_TEST
 					if((search_address >= slave_test_address) && (test_withdraw == NO)){
 						DALI_TestReceive( YES );
+					}
 #endif
 						break;
-					}
 				default:
 					break;
 			}
 			break;
 		case VERIFY:
 #ifdef DALI_ENUM_TEST
-			if(test_withdraw == NO)
+			if(test_withdraw == NO){
 				DALI_TestReceive( YES );
+				slave_test_address = (slave_test_address + 2) % 0xFF;
+			}
+			else{
+				test_withdraw = NO;
+			}
 #endif
 			//			DALI_StartTimer(MS_4);
 			break;
