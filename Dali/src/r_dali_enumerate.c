@@ -112,7 +112,7 @@ static void DALI_search_communication()
 			if(state == SEARCH_H){
 				search_h = guess_address;
 			}
-			DALI_SendCommand((EXCOMMAND_SEARCHADDRH << 8) & search_h);
+			DALI_SendCommand((EXCOMMAND_SEARCHADDRH << 8) | search_h);
 			search_substate = SUB_SEARCH_M;
 			DALI_StartTimer(MS_4);
 			break;
@@ -120,7 +120,7 @@ static void DALI_search_communication()
 			if(state == SEARCH_M){
 				search_m = guess_address;
 			}
-			DALI_SendCommand((EXCOMMAND_SEARCHADDRM << 8) & search_m);
+			DALI_SendCommand((EXCOMMAND_SEARCHADDRM << 8) | search_m);
 			search_substate = SUB_SEARCH_L;
 			DALI_StartTimer(MS_4);
 			break;
@@ -128,7 +128,7 @@ static void DALI_search_communication()
 			if(state == SEARCH_L){
 				search_l = guess_address;
 			}
-			DALI_SendCommand((EXCOMMAND_SEARCHADDRL << 8) & search_l);
+			DALI_SendCommand((EXCOMMAND_SEARCHADDRL << 8) | search_l);
 			search_substate = SUB_COMPARE;
 			DALI_StartTimer(MS_4);
 			break;
