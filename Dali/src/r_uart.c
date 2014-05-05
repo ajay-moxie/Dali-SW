@@ -161,8 +161,9 @@ __interrupt void UART1_TxHandler( void )
 	 //SDR02	= 0x67 << 9; //38400
 	 //SDR03	= 0x67 << 9; //38400
 	 //NFEN0 = 0x4;
-	 SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;
-    	 SOL0 |= _0000_SAU_CHANNEL2_NORMAL;    /* output level normal */
+	 SO0 &= ~_0004_SAU_CH2_DATA_OUTPUT_1;
+	 //SOL0 |= _0000_SAU_CHANNEL2_NORMAL;
+	 SOL0 |= _0004_SAU_CHANNEL2_INVERTED;    /* output level normal */
     	 SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
 	 //SOL0	= 0x0;
 	 //SO0	= 0x0A0E;
