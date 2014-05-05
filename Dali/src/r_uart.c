@@ -118,8 +118,8 @@ __interrupt void UART1_TxHandler( void )
 	 for(i = 0; i < 20; i++)
 	 	NOP();
 	 //SPS0	= (0x2 << 4) & 0x00F0; //4MHz
-	 //SPS0	= _0002_SAU_CK00_FCLK_2 | _0020_SAU_CK01_FCLK_2;
-	 SPS0 = _0005_SAU_CK00_FCLK_5 | _0050_SAU_CK01_FCLK_5;
+	 SPS0	= _0002_SAU_CK00_FCLK_2 | _0020_SAU_CK01_FCLK_2;
+	 //SPS0 = _0005_SAU_CK00_FCLK_5 | _0050_SAU_CK01_FCLK_5;
 	 
 	 ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
 	 STMK1 = 1U;    /* disable INTST1 interrupt */
