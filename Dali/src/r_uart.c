@@ -174,9 +174,7 @@ void UART1_init()
 	SAU0EN	= 1;
 	for(i = 0; i < 20; i++)
 		NOP();
-	//SPS0	= (0x2 << 4) & 0x00F0; //4MHz
 	SPS0	= _0002_SAU_CK00_FCLK_2 | _0020_SAU_CK01_FCLK_2;
-	//SPS0 = _0005_SAU_CK00_FCLK_5 | _0050_SAU_CK01_FCLK_5;
 
 	ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and transmit */
 	STMK1 = 1U;    /* disable INTST1 interrupt */
@@ -197,7 +195,6 @@ void UART1_init()
 	SMR02 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_TRIGGER_SOFTWARE |
 		_0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
 
-	//SMR02	= 0x8022; //SPS0 based(ck01), check this if not working
 	SCR02 = _8000_SAU_TRANSMISSION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
 		_0007_SAU_LENGTH_8;
 	SDR02 = _CE00_UART1_TRANSMIT_DIVISOR;
@@ -208,28 +205,11 @@ void UART1_init()
 	SCR03 = _4000_SAU_RECEPTION | _0400_SAU_INTSRE_ENABLE | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
 		_0007_SAU_LENGTH_8;
 	SDR03 = _CE00_UART1_RECEIVE_DIVISOR;
-	//SMR03	= 0x8122; //SPS0 based(ck01), check this if not working
-	//SCR02	= 0x8097; //No partity, LSB first, 1 stop bit, 8 bit	
-	//SCR03	= 0x4497; //No partity, LSB first, 1 stop bit, 8 bit	
 
-	/*Clear Interrupts*/
-	//SIR02 = 0x0;
-	//SIR03 = 0x0;
-	//SDR02	= 0x67 << 9; //38400
-	//SDR03	= 0x67 << 9; //38400
-	//NFEN0 = 0x4;
 	SO0 &= ~_0004_SAU_CH2_DATA_OUTPUT_1;
 	//SOL0 |= _0000_SAU_CHANNEL2_NORMAL;
 	SOL0 |= _0004_SAU_CHANNEL2_INVERTED;    /* output level normal */
 	SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
-	//SOL0	= 0x0;
-	//SO0	= 0x0A0E;
-	//SOE0	= 0x0004;
-	//SE02
-	//Page 86: To use P02/TxD1/ANI17 as a general-purpose port, set bit 2 (SE02) of serial channel enable status 
-	//register 0 (SE0), bit 2 (SO02) of serial output register 0 (SO0) and bit 2 (SOE02) of serial output enable 
-	//register 0 (SOE0) to the default status
-	//
 
 	/* Set RxD1 pin */
 	PMC0 &= 0xF7U;
@@ -238,14 +218,4 @@ void UART1_init()
 	PMC0 &= 0xFBU;
 	P0 |= 0x04U;
 	PM0 &= 0xFBU;
-	// POM0 = 0x4;
-	//PMC0.2 = 0;
-	//PMC0.3 = 0;
-	//Port Mode Register PM
-	//PM0.2 = 0; //output mode
-	//PM0.3 = 1;
-	//Port Register P0 TxD1, TxR1
-	//P0.2	= 1;
-	//Port Output mode register POM0
-	//Port Mode Control Register PMC0
 }
