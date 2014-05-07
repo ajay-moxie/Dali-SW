@@ -37,6 +37,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_user.h"
 #include "r_led.h"
 #include "r_dali.h"
+#include "r_uart.h"
 
 
 /******************************************************************************
@@ -49,4 +50,6 @@ void user_init( void )
 {
 	LED_init( );
 	DALI_init( );
+	UART1_init( );
+	UART1_start();
 }
