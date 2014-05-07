@@ -22,6 +22,41 @@ static uint8_t uart_rx_write_index = UART_RX_BUFFER_SIZE - 1;
 static uint8_t *uart_tx_buffer;
 static uint8_t uart_tx_size = 0;
 
+/******************************************************************************
+* Function Name : UART1_RxDataCount
+* Description : Function to read data from circular buffer.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+int8_t UART1_RxDataCount()
+{
+	uint8_t ret;
+	DI();
+	ret = uart_rx_write_index - uart_rx_read_index;
+	EI();
+	if(uart_rx_write_index < uart_rx_read_index)
+		ret += UART_RX_BUFFER_SIZE;
+	return ret;
+}
+/******************************************************************************
+* Function Name : UART1_ReadData
+* Description : Function to read data from circular buffer.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+uint8_t UART1_ReadData( uint8_t *buff, int size)
+{
+	if(UART1_RxDataCount() < size)
+		return 0;
+	while(size > 0){
+		uart_rx_read_index = (uart_rx_read_index + 1) % UART_RX_BUFFER_SIZE;
+		*buff = uart_rx_circular_buff[uart_rx_read_index];
+		size--;
+		if(size)
+			buff++;
+	}
+	return 1;
+}
 __interrupt void UART1_RxHandler( void )
 {
 	uint16_t status;
