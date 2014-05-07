@@ -37,6 +37,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_user.h"
 #include "r_led.h"
 #include "r_dali.h"
+#include "r_uart.h"
 
 
 /******************************************************************************
@@ -48,10 +49,14 @@ Includes <System Includes> , ÅgProject IncludesÅh
 void user_main( void )
 {
 	uint8_t ch1_level;
-
+	static uint8_t buff[10];
+	static uint8_t size;
 	/* Get new level via DALI interface */
 	ch1_level = DALI_getValue( 1 );
 
 	/* Set level to each channel */
 	LED1_set( ch1_level );
+	size = 5;
+	if(UART1_ReadData(buff,size))
+		UART1_send(buff,size);
 }
