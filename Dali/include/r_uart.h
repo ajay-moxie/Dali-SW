@@ -350,6 +350,7 @@ Macro definitions
 ***********************************************************************************************************************/
 
 void UART1_init();
-void UART1_send(uint8_t data);
 void UART1_start();
+int UART1_send(uint8_t *data, uint8_t size);
+uint8_t UART1_ReadData( uint8_t *buff, int size);
 #endif
