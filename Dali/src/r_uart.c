@@ -19,6 +19,8 @@
 static uint8_t uart_rx_circular_buff[UART_RX_BUFFER_SIZE];
 static uint8_t uart_rx_read_index = UART_RX_BUFFER_SIZE - 1;
 static uint8_t uart_rx_write_index = UART_RX_BUFFER_SIZE - 1;
+static uint8_t *uart_tx_buffer;
+static uint8_t uart_tx_size = 0;
 
 __interrupt void UART1_RxHandler( void )
 {
@@ -52,8 +54,15 @@ __interrupt void UART1_RxErrorHandler( void )
 __interrupt void UART1_TxHandler( void )
 {
 	uint16_t status;
+	uint8_t data;
 	status = SSR02; 
 	SIR02 = status;
+	if(uart_tx_size > 0){
+		uart_tx_buffer++;
+		data = *uart_tx_buffer;
+		uart_tx_size--;
+		SDR02 =  data;
+	}
 }
 
 /******************************************************************************
@@ -101,11 +110,24 @@ __interrupt void UART1_TxHandler( void )
  * Argument : none
  * Return Value : none
  ******************************************************************************/
- void UART1_send(uint8_t data)
- {
-	 SDR02 = SDR02 | data;
- }
- /******************************************************************************
+int UART1_send(uint8_t *data, uint8_t size)
+{
+	if(uart_tx_size > 0){
+		return 0;
+	}
+	if(size > 0){
+		DI();
+		uart_tx_size = size;
+		uart_tx_buffer = data;
+		uart_tx_size--;
+		EI();
+		SDR02 = (*uart_tx_buffer);
+		return 1;
+	}
+	return 0;
+
+}
+/******************************************************************************
  * Function Name : UART_init
  * Description : UART Initialize.
  * Argument : none
