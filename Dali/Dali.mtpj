@@ -238,12 +238,21 @@
       <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
       <Property>284f8558-28a1-4d3a-918f-3e8b91c11cd5</Property>
     </Instance>
+    <Instance Guid="a48ee3fe-e246-4889-9a08-031c120334e7">
+      <Name>r_uart.c</Name>
+      <Type>File</Type>
+      <RelativePath>src\r_uart.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
+      <Property>1eb3623f-29bf-4453-95fa-0ef00be00fd4</Property>
+    </Instance>
     <Instance Guid="ff10675f-6ca7-4ff0-b13f-78afa0b48edf">
       <Name>r_user.h</Name>
       <Type>File</Type>
       <RelativePath>include\r_user.h</RelativePath>
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
+      <Property>98509fa7-5753-4fcc-a167-afe72df1b66e</Property>
     </Instance>
     <Instance Guid="2ec79787-04ca-4e3f-9114-da8eccdb382e">
       <Name>r_dali.h</Name>
@@ -318,6 +327,7 @@
       <RelativePath>include\r_led.h</RelativePath>
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
+      <Property>b7ff18ea-65fe-4daf-b18c-7436041c340c</Property>
     </Instance>
     <Instance Guid="3429947a-ab3c-4692-9bdd-2116c0d2253f">
       <Name>r_lvd.h</Name>
@@ -391,6 +401,14 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
       <Property>816f87a9-378c-41ab-943f-46e2f07e7e15</Property>
+    </Instance>
+    <Instance Guid="e57fc93b-60e7-4ec9-bfa1-38f7097020a2">
+      <Name>r_uart.h</Name>
+      <Type>File</Type>
+      <RelativePath>include\r_uart.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
+      <Property>680599b3-be3a-4eb3-83cf-bcea57269e31</Property>
     </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -481,6 +499,18 @@
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="816f87a9-378c-41ab-943f-46e2f07e7e15">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="1eb3623f-29bf-4453-95fa-0ef00be00fd4">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="680599b3-be3a-4eb3-83cf-bcea57269e31">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="98509fa7-5753-4fcc-a167-afe72df1b66e">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="b7ff18ea-65fe-4daf-b18c-7436041c340c">
       <MemoCount>0</MemoCount>
     </Instance>
   </Class>
@@ -583,7 +613,9 @@
       <SourceItemType25>CSource</SourceItemType25>
       <SourceItemGuid26>b92909ef-3ba0-4854-b253-de1ddd429aff</SourceItemGuid26>
       <SourceItemType26>CSource</SourceItemType26>
-      <SourceItemCount>27</SourceItemCount>
+      <SourceItemGuid27>a48ee3fe-e246-4889-9a08-031c120334e7</SourceItemGuid27>
+      <SourceItemType27>CSource</SourceItemType27>
+      <SourceItemCount>28</SourceItemCount>
       <VfiSourceItemCount>0</VfiSourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
@@ -1207,6 +1239,14 @@ eel_re\smp
       <ItemAddTime>635323187416808638</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="a48ee3fe-e246-4889-9a08-031c120334e7">
+      <ItemAddTime>635336891077788739</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="e57fc93b-60e7-4ec9-bfa1-38f7097020a2">
+      <ItemAddTime>635336891298711375</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="e4582a76-90da-4988-9864-24db24826845">
       <TimeTagModified-SourceItem0--0>-8588152110195175065</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1317,6 +1357,10 @@ eel_re\smp
       <SourceItem26-IsLockedByUser>False</SourceItem26-IsLockedByUser>
       <SourceItem26-BuildingTarget-0>True</SourceItem26-BuildingTarget-0>
       <SourceItem26-IndividualCompileOption-0>False</SourceItem26-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem27--0>-8588035343776987069</TimeTagModified-SourceItem27--0>
+      <SourceItem27-IsLockedByUser>False</SourceItem27-IsLockedByUser>
+      <SourceItem27-BuildingTarget-0>True</SourceItem27-BuildingTarget-0>
+      <SourceItem27-IndividualCompileOption-0>False</SourceItem27-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
