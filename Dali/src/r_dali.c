@@ -179,7 +179,7 @@ void DALI_init( void )
 	DALI_InitMemorybank();
 
 	/* Initialize the timer to control the communication interval.  */
-	DALI_InitTimer();
+	//DALI_InitTimer();
 
 	/* Initialize the Port  */
 	SPS4	= 0x0006;						/* CK40 select fCLK/2^6 = 62.5kHz	*/

@@ -33,6 +33,7 @@ static void DALI_100ms_timeout();
 void DALI_Enumerate(uint8_t address)
 {
 	enumeration_required = 1;
+	DALI_InitTimer();
 	response = NA;
 	DALI_RegisterTimer(MS_4, DALI_4ms_timeout);
 	DALI_RegisterTimer(MS_8, DALI_8ms_timeout);
