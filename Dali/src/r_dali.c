@@ -326,6 +326,7 @@ uint8_t DALI_ReadData( uint8_t *data )
 		return 0;
 	dali_read_index = (dali_read_index + 1) % DALI_MAX_SLAVE;
 	*data = dali_recv_circular_buff[dali_read_index];
+	return 1;
 }
 /******************************************************************************
 * Function Name : DALI_INT_Receive
