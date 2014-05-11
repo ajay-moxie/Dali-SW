@@ -44,7 +44,7 @@ int8_t UART1_RxDataCount()
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-uint8_t UART1_ReadData( uint8_t *buff, int size)
+uint8_t UART1_ReadData( uint8_t *buff, uint8_t size)
 {
 	if(UART1_RxDataCount() < size)
 		return 0;
@@ -145,7 +145,7 @@ void UART1_stop()
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-int UART1_send(uint8_t *data, uint8_t size)
+uint8_t UART1_send(uint8_t *data, uint8_t size)
 {
 	if(uart_tx_size > 0){
 		return 0;
