@@ -179,8 +179,20 @@ static void DALI_4ms_timeout()
 			DALI_search_communication();
 			break;
 		case ADDRESS:
-			DALI_SendCommand((EXCOMMAND_PROGRAM_SHORT_ADDRESS << 8) | ((address << 1) | 0x01));
-			state = VERIFY;
+			address = DALI_get_new_slave_address();
+			if(address != 0xFF){
+				slave.address = address;
+				slave.search_h = search_h;
+				slave.search_m = search_m;
+				slave.search_l = search_l;
+				DALI_set_slave_config(slave);
+				DALI_SendCommand((EXCOMMAND_PROGRAM_SHORT_ADDRESS << 8) | ((address << 1) | 0x01));
+				state = VERIFY;
+			}else{
+				state = TERMINATE;
+				search_substate = SUB_SEARCH_H;
+			}
+			
 			DALI_StartTimer(MS_4);
 			break;
 		case VERIFY:
@@ -191,20 +203,8 @@ static void DALI_4ms_timeout()
 		case WITHDRAW:
 			DALI_SendCommand((EXCOMMAND_WITHRAW << 8) & 0xFF00);
 			response = NA;
-			address = DALI_get_new_slave_address();
-			if(address != 0xFF){
-				slave.address = address;
-				slave.search_h = search_h;
-				slave.search_m = search_m;
-				slave.search_l = search_l;
-				DALI_set_slave_config(slave);
-				state = SEARCH_H;
-				search_substate = SUB_SEARCH_H;
-			}
-			else{
-				state = TERMINATE;
-				search_substate = SUB_SEARCH_H;
-			}
+			state = SEARCH_H;
+			search_substate = SUB_SEARCH_H;
 			search_h = 0xFF;
 			search_m = 0xFF;
 			search_l = 0xFF;
@@ -216,7 +216,10 @@ static void DALI_4ms_timeout()
 		case TERMINATE:
 			DALI_SendCommand((EXCOMMAND_TERMINATE << 8) | address);
 			enumeration_required = 0;
-			state = RANDOMIZE;
+			search_h = 0xFF;
+			search_m = 0xFF;
+			search_l = 0xFF;
+			state = INITIALIZE;
 			break;
 		default:
 			break;
