@@ -30,10 +30,12 @@ static void DALI_100ms_timeout();
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-void DALI_Enumerate(uint8_t address)
+void DALI_Enumerate(uint8_t add)
 {
 	enumeration_required = 1;
+	address = add;
 	DALI_InitTimer();
+	DALI_slave_initialize();
 	response = NA;
 	DALI_RegisterTimer(MS_4, DALI_4ms_timeout);
 	DALI_RegisterTimer(MS_8, DALI_8ms_timeout);

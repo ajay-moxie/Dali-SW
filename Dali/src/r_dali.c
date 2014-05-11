@@ -220,8 +220,8 @@ void DALI_init( void )
 	SREDLMK4= 0;							/* INTSREDL4 interrupt disable		*/
 
 	SS4		= 0x0003;						/* start UART4 ch.0 and 1			*/
-	DALI_slave_initialize();
-	DALI_Enumerate(0);
+//	DALI_slave_initialize();
+//	DALI_Enumerate(0);
 }
 
 /******************************************************************************
