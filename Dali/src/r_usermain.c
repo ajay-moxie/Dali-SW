@@ -37,8 +37,9 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_user.h"
 #include "r_led.h"
 #include "r_dali.h"
-#include "r_uart.h"
-
+#include "host_commands.h"
+#include "host_communication.h"
+extern t_host_comm host_comm;
 
 /******************************************************************************
 * Function Name : user_main
@@ -56,7 +57,7 @@ void user_main( void )
 
 	/* Set level to each channel */
 	LED1_set( ch1_level );
-	size = 5;
-	if(UART1_ReadData(buff,size))
-		UART1_send(buff,size);
+	size = HOST_FORWARD_FRAME_SIZE;
+	if(host_comm.usp_rx(buff,size))
+		host_AnalyzeCommand(buff);
 }
