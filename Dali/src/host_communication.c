@@ -88,17 +88,3 @@ uint8_t host_AnalyzeCommand(uint8_t *buff)
 	return ret;
 }
 
-/******************************************************************************
- * Function Name : UART1_RxDataCount
- * Description : Function to read data from circular buffer.
- * Argument : none
- * Return Value : none
- ******************************************************************************/
-
-
-/******************************************************************************
- * Function Name : UART1_RxDataCount
- * Description : Function to read data from circular buffer.
- * Argument : none
- * Return Value : none
- ******************************************************************************/
