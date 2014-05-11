@@ -5,6 +5,8 @@
 #include "r_dali_analyze.h"
 #include "r_dali_timer.h"
 #include "r_dali_slave.h"
+#include "host_communication.h"
+#include "host_commands.h"
 //#define DALI_ENUM_TEST
 static uint8_t state;
 static uint8_t search_substate;
@@ -15,6 +17,7 @@ static uint8_t search_h = 0xff;
 static uint8_t search_m = 0xff;
 static uint8_t search_l = 0xff;
 static uint8_t response;
+extern t_host_comm host_comm;
 #ifdef DALI_ENUM_TEST
 static uint16_t test_withdraw = NO;
 #endif
@@ -156,6 +159,7 @@ static void DALI_search_communication()
 static void DALI_4ms_timeout()
 {
 	uint8_t guess_address;
+	static uint8_t host_response[3];
 	struct dali_slave slave;
 	switch(state){
 		case INITIALIZE:
@@ -220,6 +224,8 @@ static void DALI_4ms_timeout()
 			search_m = 0xFF;
 			search_l = 0xFF;
 			state = INITIALIZE;
+			RESPONSE_ACK(host_response);
+			host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
 			break;
 		default:
 			break;
