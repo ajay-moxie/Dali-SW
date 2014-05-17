@@ -63,7 +63,7 @@ const uint8_t MASK_SAVE_REQUEST[4] = { 0x01,0x02,0x04,0x08 };
 static uint8_t dali_recv_circular_buff[DALI_MAX_SLAVE];
 static uint8_t dali_read_index = DALI_MAX_SLAVE - 1;
 static uint8_t dali_write_index = DALI_MAX_SLAVE - 1;
-
+static void (*DALI_ExtRxHandler)();
 
 uint8_t dali_actual_level[NUMBER_OF_CHANNEL];		/* Actual Level */
 uint8_t dali_actual_target[NUMBER_OF_CHANNEL];		/* for fading */
@@ -174,6 +174,8 @@ void DALI_init( void )
 			DALI_SetSystemFailure(i);
 		}
 	}
+
+	DALI_ExtRxHandler = NULL;
 	
 	/* initialize the memory bank */
 	DALI_InitMemorybank();
@@ -282,6 +284,26 @@ void DALI_ActualLevelChangecheck( uint8_t channel )
 }
 
 /******************************************************************************
+* Function Name : Dali_IsDwnResponseNeeded
+* Description : Checks if response to down stream device needed.
+* Argument : command
+* Return Value : yes/no
+******************************************************************************/
+uint32_t Dali_IsDwnResponseNeeded( uint16_t command )
+{
+	uint8_t cmd;
+	uint8_t add;
+	
+	cmd = (uint8_t)command;
+	add = (uint8_t)(command >> 8); //with byte 0 and byte 7
+
+	if((command >> 8) && 0x1) //direct arc power
+		return 0;
+	else if(((cmd >= 144) && (cmd <= 155)) || ((cmd >= 160) && (cmd <= 196)))
+		return 1;
+	return 0;
+}
+/******************************************************************************
 * Function Name : DALI_SendCommand
 * Description : DALI command send.
 * Argument : Command
@@ -328,6 +350,28 @@ uint8_t DALI_ReadData( uint8_t *data )
 	*data = dali_recv_circular_buff[dali_read_index];
 	return 1;
 }
+
+/******************************************************************************
+* Function Name : DALI_RegisterExtRxHandler
+* Description : Extended Interrupt handler for Dali receive.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+void DALI_RegisterExtRxHandler(void (*rx_ext)(void))
+{
+	DALI_ExtRxHandler = rx_ext;
+}
+
+/******************************************************************************
+* Function Name : DALI_UnRegisterExtRxHandler
+* Description : Extended Interrupt handler for Dali receive.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+void DALI_UnRegisterExtRxHandler(void (*rx_ext)(void))
+{
+	DALI_ExtRxHandler = NULL;
+}
 /******************************************************************************
 * Function Name : DALI_INT_Receive
 * Description : Interrupt handler to receive DALI command.
@@ -351,6 +395,8 @@ __interrupt void DALI_ReceiveCommand( void )
 	}
 	SRDLIF4	= 0;
 	SREDLIF4= 0;
+	if(DALI_ExtRxHandler)
+		DALI_ExtRxHandler();
 }
 
 /******************************************************************************

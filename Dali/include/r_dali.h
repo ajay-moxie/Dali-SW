@@ -123,5 +123,8 @@ void DALI_CheckReset( void );
 void DALI_SendCommand(uint16_t Command);
 uint8_t DALI_ReadData( uint8_t *data );
 void DALI_TestReceive( uint8_t data );
+uint32_t Dali_IsDwnResponseNeeded( uint16_t command );
+void DALI_RegisterExtRxHandler(void (*rx_ext)(void));
+void DALI_UnRegisterExtRxHandler(void (*rx_ext)(void));
 
 #endif
