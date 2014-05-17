@@ -16,12 +16,15 @@ t_host_comm host_comm;
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-void host_RegisterTxRx(fn upstrm_tx, fn upstrm_rx, fn1 down_tx, fn2 down_rx)
+void host_RegisterTxRx(t_host_comm host)
 {
-	host_comm.usp_tx = upstrm_tx;
-	host_comm.usp_rx = upstrm_rx;
-	host_comm.dwn_tx = down_tx;
-	host_comm.dwn_rx = down_rx;
+	host_comm.usp_tx = host.usp_tx;
+	host_comm.usp_rx = host.usp_rx;
+	host_comm.dwn_tx = host.dwn_tx;
+	host_comm.dwn_rx = host.dwn_rx;
+	host_comm.dwn_response = host.dwn_response;
+	host_comm.dwn_register_rx_handler = host.dwn_register_rx_handler;
+	host_comm.dwn_unregister_rx_handler = host.dwn_unregister_rx_handler;
 }
 
 /******************************************************************************
