@@ -49,9 +49,18 @@ Includes <System Includes> , ÅgProject IncludesÅh
 ******************************************************************************/
 void user_init( void )
 {
+	t_host_comm host_comm;
 	LED_init( );
 	DALI_init( );
 	UART1_init( );
 	UART1_start();
-	host_RegisterTxRx(UART1_send, UART1_ReadData, DALI_SendCommand, DALI_ReadData);
+	
+	host_comm.usp_tx = UART1_send;
+	host_comm.usp_rx = UART1_ReadData;
+	host_comm.dwn_tx = DALI_SendCommand;
+	host_comm.dwn_rx = DALI_ReadData;
+	host_comm.dwn_response = Dali_IsDwnResponseNeeded;
+	host_comm.dwn_register_rx_handler = DALI_RegisterExtRxHandler;
+	host_comm.dwn_unregister_rx_handler = DALI_UnRegisterExtRxHandler;
+	host_RegisterTxRx(host_comm);
 }
