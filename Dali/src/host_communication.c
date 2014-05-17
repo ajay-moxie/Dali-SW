@@ -71,6 +71,16 @@ static void host_ProcessSlaveCommand(uint8_t *buff)
 
 	host_comm.usp_tx(&dwn_data, 2);*/
 }
+
+void host_dwx_rx_handler()
+{
+	uint8_t response;
+	static uint8_t host_response[3];
+	host_comm.dwn_unregister_rx_handler(host_dwx_rx_handler);
+	host_comm.dwn_rx(&response);
+	RESPONSE_BYTE(host_response, response);
+	host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
+}
 /******************************************************************************
  * Function Name : host_analyze_commdiwand
  * Description : analyze command for slave or master command.
@@ -80,6 +90,12 @@ static void host_ProcessSlaveCommand(uint8_t *buff)
 uint8_t host_AnalyzeCommand(uint8_t *buff)
 {
 	uint8_t ret = 0;
+	uint16_t usp_cmd;
+	usp_cmd = (buff[1] << 8) | (buff[2]);
+	if(host_comm.dwn_response(usp_cmd)){
+		host_comm.dwn_register_rx_handler(host_dwx_rx_handler);
+		
+	}
 	
 	if(buff[0] == SLAVE_COMMAND){
 		host_ProcessSlaveCommand(buff+1);
