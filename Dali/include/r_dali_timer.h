@@ -58,7 +58,7 @@ Exported global variables and functions (to be accessed by other files)
 void DALI_InitTimer( void );
 void DALI_RegisterTimer(uint16_t type, fn_t func);
 void DALI_Interval( void );
-void DALI_Counter( void );
+//static void DALI_Counter( void );
 void DALI_StartTimer( uint16_t type );
 void DALI_StopTimer( uint16_t type );
 void DALI_StartFadeTimer( uint32_t fadestep ,uint16_t fadetime );

@@ -66,6 +66,7 @@ static uint8_t timecount_prohibit_reception;
 static uint8_t timecount_10ms;
 static uint32_t timecount_totaltime;
 static struct timer dali_timeout;
+static void DALI_Counter( void );
 
 /******************************************************************************
 * Function Name : DALI_InitTimer
@@ -118,7 +119,7 @@ void DALI_InitTimer( void )
 * Argument : none
 * Return Value : none
 ******************************************************************************/
-void DALI_Counter( void )
+static void DALI_Counter( void )
 {
 	dali_timeout.timecount_totaltime++;
 	if(dali_timeout.timecount_4ms){
