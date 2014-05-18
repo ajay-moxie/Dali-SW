@@ -2,6 +2,7 @@
 #include "host_communication.h"
 #include "host_commands.h"
 #include "r_dali_enumerate.h"
+#include "r_dali_config.h"
 #include "r_dali_slave.h"
 
 /*uint8_t (*usp_tx)(uint8_t *buff, uint8_t size);
@@ -38,11 +39,18 @@ static void host_ProcessMasterCommand(uint8_t *buff)
 {
 	uint8_t cmd;
 	static uint8_t host_response[3];
+	uint16_t config_cmd;
 	uint8_t temp;
+	
 	cmd = buff[0];
 	switch(cmd){
 		case ENUMERATE:
 		DALI_Enumerate(buff[1]);
+		break;
+		case MASTER_CONFIGURATION_COMMAND:
+		config_cmd = buff[1];
+		config_cmd = (config_cmd << 8) | buff[2];
+		DALI_Config(config_cmd);
 		break;
 		case DEVICE_COUNT:
 		temp = DALI_get_new_slave_address();

@@ -56,11 +56,15 @@ struct timer {
 Exported global variables and functions (to be accessed by other files)
 ******************************************************************************/
 void DALI_InitTimer( void );
+void DALI_ConfigInitTimer( void );
 void DALI_RegisterTimer(uint16_t type, fn_t func);
+void DALI_RegisterConfigTimer(uint16_t type, fn_t func);
 void DALI_Interval( void );
 //static void DALI_Counter( void );
 void DALI_StartTimer( uint16_t type );
+void DALI_ConfigStartTimer( uint16_t type );
 void DALI_StopTimer( uint16_t type );
+void DALI_ConfigStopTimer( uint16_t type );
 void DALI_StartFadeTimer( uint32_t fadestep ,uint16_t fadetime );
 void DALI_StopFadeTimer( uint8_t channel  );
 uint8_t DALI_IsTimerRunning( uint16_t type );
