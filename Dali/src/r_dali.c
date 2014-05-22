@@ -392,11 +392,11 @@ __interrupt void DALI_ReceiveCommand( void )
 	} else if ( received_status & 0x20) {
 		dali_write_index = (dali_write_index + 1) % DALI_MAX_SLAVE;
 		dali_recv_circular_buff[dali_write_index] = (uint8_t)received_data;
+		if(DALI_ExtRxHandler)
+			DALI_ExtRxHandler();
 	}
 	SRDLIF4	= 0;
 	SREDLIF4= 0;
-	if(DALI_ExtRxHandler)
-		DALI_ExtRxHandler();
 }
 
 /******************************************************************************
