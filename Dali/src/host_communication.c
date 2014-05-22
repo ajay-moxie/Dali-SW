@@ -100,6 +100,7 @@ uint8_t host_AnalyzeCommand(uint8_t *buff)
 	uint8_t ret = 0;
 	uint16_t usp_cmd;
 	usp_cmd = (buff[1] << 8) | (buff[2]);
+	host_comm.dwn_unregister_rx_handler(host_dwx_rx_handler);
 	if(host_comm.dwn_response(usp_cmd)){
 		host_comm.dwn_register_rx_handler(host_dwx_rx_handler);
 		
