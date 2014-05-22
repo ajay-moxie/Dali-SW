@@ -254,6 +254,22 @@
       <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
       <Property>54064aed-3410-4204-a08b-5fe9eeabff33</Property>
     </Instance>
+    <Instance Guid="efeb4607-6f9e-4add-99a7-05691cc47580">
+      <Name>r_dali_config_timer.c</Name>
+      <Type>File</Type>
+      <RelativePath>src\r_dali_config_timer.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
+      <Property>71e2549c-7325-47b3-9850-c9da5a6e8b8e</Property>
+    </Instance>
+    <Instance Guid="ee9e532c-1552-4765-8a0d-06ae3398207a">
+      <Name>r_dali_config.c</Name>
+      <Type>File</Type>
+      <RelativePath>src\r_dali_config.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
+      <Property>df1c9661-a376-42ef-815b-2bc509e3ea91</Property>
+    </Instance>
     <Instance Guid="ff10675f-6ca7-4ff0-b13f-78afa0b48edf">
       <Name>r_user.h</Name>
       <Type>File</Type>
@@ -434,6 +450,14 @@
       <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
       <Property>ce7c3adc-5804-4f94-baa7-6e3c38107e23</Property>
     </Instance>
+    <Instance Guid="0d8281a7-5487-4465-853d-3be24c9274cb">
+      <Name>r_dali_config.h</Name>
+      <Type>File</Type>
+      <RelativePath>include\r_dali_config.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
+      <Property>e977f845-2b8f-4172-8f53-944aac8ca1ad</Property>
+    </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -507,6 +531,9 @@
     <Instance Guid="1eb3623f-29bf-4453-95fa-0ef00be00fd4">
       <MemoCount>0</MemoCount>
     </Instance>
+    <Instance Guid="54064aed-3410-4204-a08b-5fe9eeabff33">
+      <MemoCount>0</MemoCount>
+    </Instance>
     <Instance Guid="98509fa7-5753-4fcc-a167-afe72df1b66e">
       <MemoCount>0</MemoCount>
     </Instance>
@@ -543,7 +570,13 @@
     <Instance Guid="ce7c3adc-5804-4f94-baa7-6e3c38107e23">
       <MemoCount>0</MemoCount>
     </Instance>
-    <Instance Guid="54064aed-3410-4204-a08b-5fe9eeabff33">
+    <Instance Guid="71e2549c-7325-47b3-9850-c9da5a6e8b8e">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="df1c9661-a376-42ef-815b-2bc509e3ea91">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="e977f845-2b8f-4172-8f53-944aac8ca1ad">
       <MemoCount>0</MemoCount>
     </Instance>
   </Class>
@@ -650,7 +683,11 @@
       <SourceItemType27>CSource</SourceItemType27>
       <SourceItemGuid28>f7d6be53-57c6-459f-bfb0-9f2349b95079</SourceItemGuid28>
       <SourceItemType28>CSource</SourceItemType28>
-      <SourceItemCount>29</SourceItemCount>
+      <SourceItemGuid29>efeb4607-6f9e-4add-99a7-05691cc47580</SourceItemGuid29>
+      <SourceItemType29>CSource</SourceItemType29>
+      <SourceItemGuid30>ee9e532c-1552-4765-8a0d-06ae3398207a</SourceItemGuid30>
+      <SourceItemType30>CSource</SourceItemType30>
+      <SourceItemCount>31</SourceItemCount>
       <VfiSourceItemCount>0</VfiSourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
@@ -1294,6 +1331,18 @@ eel_re\smp
       <ItemAddTime>635353192560313371</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="efeb4607-6f9e-4add-99a7-05691cc47580">
+      <ItemAddTime>635360265593646997</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="ee9e532c-1552-4765-8a0d-06ae3398207a">
+      <ItemAddTime>635360265823620151</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="0d8281a7-5487-4465-853d-3be24c9274cb">
+      <ItemAddTime>635360266049203053</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="e4582a76-90da-4988-9864-24db24826845">
       <TimeTagModified-SourceItem0--0>-8588152110195175065</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1412,6 +1461,14 @@ eel_re\smp
       <SourceItem28-IsLockedByUser>False</SourceItem28-IsLockedByUser>
       <SourceItem28-BuildingTarget-0>True</SourceItem28-BuildingTarget-0>
       <SourceItem28-IndividualCompileOption-0>False</SourceItem28-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem29--0>-8588011969261128811</TimeTagModified-SourceItem29--0>
+      <SourceItem29-IsLockedByUser>False</SourceItem29-IsLockedByUser>
+      <SourceItem29-BuildingTarget-0>True</SourceItem29-BuildingTarget-0>
+      <SourceItem29-IndividualCompileOption-0>False</SourceItem29-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem30--0>-8588011969031155657</TimeTagModified-SourceItem30--0>
+      <SourceItem30-IsLockedByUser>False</SourceItem30-IsLockedByUser>
+      <SourceItem30-BuildingTarget-0>True</SourceItem30-BuildingTarget-0>
+      <SourceItem30-IndividualCompileOption-0>False</SourceItem30-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
