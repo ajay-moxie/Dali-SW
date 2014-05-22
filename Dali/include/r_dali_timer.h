@@ -10,7 +10,7 @@
 /******************************************************************************
 Macro definitions
 ******************************************************************************/
-#define TIME_WAIT_ANSWER			4					/* x 1ms:Backword transmission interval */
+#define TIME_WAIT_ANSWER			6					/* x 1ms:Backword transmission interval */
 #define TIME_PROHIBIT_RECEPTION		19		 			/* x 1ms:Address setting period */
 #define TIME_RECEIVE_INTERVAL		10					/* x10ms:recieve interval */
 #define TIME_SAVE_ACTUAL			50					/* x10ms:If the actual level doesn't change until this time, save variable. */
