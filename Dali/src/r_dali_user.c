@@ -34,6 +34,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_macrodriver.h"
 #include "r_user.h"
 #include "r_dali.h"
+#include "config.h"
 
 /******************************************************************************
 Exported global variables and functions (to be accessed by other files)
@@ -79,6 +80,7 @@ DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL] = {
 				   0,	/* reserved */
 				   0,	/* reserved */
 				   0,	/* for check data */
+				   LED_LIGHT
 
 			/* Channel 2 */
 				   1,	/* version_number */
@@ -118,6 +120,7 @@ DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL] = {
 				   0,	/* reserved */
 				   0,	/* reserved */
 				   0,	/* for check data */
+				   LED_LIGHT
 
 			/* Channel 3 */
 				   1,	/* version_number */
@@ -157,5 +160,6 @@ DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL] = {
 				   0,	/* reserved */
 				   0,	/* reserved */
 				   0,	/* for check data */
+				   LED_LIGHT
 
 };

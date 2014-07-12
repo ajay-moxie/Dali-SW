@@ -39,6 +39,7 @@ typedef struct{
 	uint8_t reserved3;				/* +34 */
 	uint8_t reserved4;				/* +35 */
 	uint32_t dataexist;			/* +36 - +39 */
+	uint8_t name[8];
 }DALI_VARS_T;
 
 /* STATUS INFORMATION */

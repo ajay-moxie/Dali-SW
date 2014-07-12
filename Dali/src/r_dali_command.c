@@ -387,6 +387,17 @@ void DALI_QueryCommand( uint8_t cmd )
 			SET_ANSWER((dali_current_variable->fade_time << 4) + dali_current_variable->fade_rate)
 			break;
 			
+		case COMMAND_QUERY_DEVICE_NAME0:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME1:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME2:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME3:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME4:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME5:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME6:/* QUERY FADE SETTING */
+		case COMMAND_QUERY_DEVICE_NAME7:/* QUERY FADE SETTING */
+				SET_ANSWER(dali_current_variable->name[cmd - COMMAND_QUERY_DEVICE_NAME0]);
+			break;
+
 		case COMMAND_QUERY_GROUPS_0_7:/* QUERY GROUPS 0-7 */
 			/* Answer shall be belonging groups. */
 			SET_ANSWER(dali_current_variable->group_0_7);
