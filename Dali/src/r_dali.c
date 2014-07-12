@@ -299,7 +299,7 @@ uint32_t Dali_IsDwnResponseNeeded( uint16_t command )
 
 	if((command >> 8) && 0x1) //direct arc power
 		return 0;
-	else if(((cmd >= 144) && (cmd <= 155)) || ((cmd >= 160) && (cmd <= 196)))
+	else if(((cmd >= 144) && (cmd <= 155)) || (cmd == 159) || ((cmd >= 160) && (cmd <= 196)))
 		return 1;
 	return 0;
 }
