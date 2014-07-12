@@ -42,6 +42,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_dali_command.h"
 #include "r_dali_timer.h"
 #include "r_dali_variable.h"
+#include "config.h"
 
 /******************************************************************************
 Exported global variables and functions (to be accessed by other files)
@@ -350,6 +351,10 @@ void DALI_QueryCommand( uint8_t cmd )
 
 		case COMMAND_QUERY_CONTENT_DTR2:
 			SET_ANSWER(dali_current_dtr2[dali_led_number]);
+			break;
+		
+		case COMMAND_QUERY_HOME_AUTOMATION_DEVICE_ID:
+			SET_ANSWER(HOME_AUTOMATION_DEVICE_ID);
 			break;
 
 		case COMMAND_QUERY_ACTUAL_LEVEL:/* QUERY ACTUAL LEVEL */
