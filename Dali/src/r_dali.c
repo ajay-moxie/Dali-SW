@@ -311,6 +311,7 @@ uint32_t Dali_IsDwnResponseNeeded( uint16_t command )
 ******************************************************************************/
 void DALI_SendCommand(uint16_t Command)
 {
+	dali_write_index = dali_read_index; //flush any earlier data
 	SDTL4 = (uint16_t)Command;
 }
 
