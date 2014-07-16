@@ -4,6 +4,7 @@
 #include "r_dali_enumerate.h"
 #include "r_dali_config.h"
 #include "r_dali_slave.h"
+#include "r_dali_name_device.h"
 
 /*uint8_t (*usp_tx)(uint8_t *buff, uint8_t size);
 uint8_t (*usp_rx)(uint8_t *buff, uint8_t size);
@@ -56,6 +57,11 @@ static void host_ProcessMasterCommand(uint8_t *buff)
 		temp = DALI_get_new_slave_address();
 		RESPONSE_BYTE(host_response,DALI_get_new_slave_address());
 		host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
+		break;
+		case DEVICE_NAME:
+		DALI_NameDevice(buff + 1);
+		
+		break;
 		default:
 		break;
 	}
