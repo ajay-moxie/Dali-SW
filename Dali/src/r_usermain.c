@@ -50,7 +50,7 @@ extern t_host_comm host_comm;
 void user_main( void )
 {
 	uint8_t ch1_level;
-	static uint8_t buff[10];
+	static uint8_t buff[HOST_FORWARD_FRAME_SIZE];
 	static uint8_t size;
 	/* Get new level via DALI interface */
 	ch1_level = DALI_getValue( 1 );
