@@ -928,6 +928,19 @@ void DALI_SpecialCommand( uint8_t cmd,uint8_t data )
 			}
 			break;
 
+		case EXCOMMAND_WRITE_NAME:
+			if (dali_current_variable->short_address == data){
+				uint8_t offset = dali_current_dtr1[dali_led_number];
+				if (offset < 8){
+					dali_current_variable->name[offset] = dali_current_dtr[dali_led_number];
+					if(offset == 7){//save it
+						DALI_UpdateVariable(dali_led_number);
+						SET_ANSWER(ANSWER_YES);
+					}
+				}
+			}
+			break;
+
 		default:
 			;
 	}
