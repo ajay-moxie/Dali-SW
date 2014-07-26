@@ -11,7 +11,7 @@
 static uint8_t state;
 static uint8_t search_substate;
 static uint8_t address;
-static uint8_t enumeration_required = 1;
+uint8_t enumeration_required;
 static uint8_t dali_resend_command = 0;
 static uint8_t search_h = 0xff;
 static uint8_t search_m = 0xff;

@@ -55,6 +55,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 Imported global variables and functions (from other files)
 ******************************************************************************/
 extern const uint8_t enable_channel[NUMBER_OF_CHANNEL];
+extern uint8_t enumeration_required;
 
 /******************************************************************************
 Exported global variables and functions (to be accessed by other files)
@@ -82,6 +83,7 @@ uint8_t dali_led_number;							/* LED number (0-3) */
 uint8_t dali_answer_ready;
 uint8_t dali_answer;
 uint8_t dali_actualSaveChannel;
+static uint8_t sent_err_int;
 
 DALI_VARS_T	*dali_current_variable;					/* current variable */
 STATUS_U	dali_status[NUMBER_OF_CHANNEL];			/* Status */
@@ -312,6 +314,7 @@ uint32_t Dali_IsDwnResponseNeeded( uint16_t command )
 void DALI_SendCommand(uint16_t Command)
 {
 	dali_write_index = dali_read_index; //flush any earlier data
+	sent_err_int = 2;//two error interrupts are received for each send
 	SDTL4 = (uint16_t)Command;
 }
 
@@ -383,13 +386,19 @@ __interrupt void DALI_ReceiveCommand( void )
 {
 	uint16_t received_data;
 	uint16_t received_status;
-	int ucCount;
+	static int ucCount = 0;
 
 	received_status = SSR41;
 	received_data	= SDCL4;
 
 	if ( received_status & 0x87) {
 		SIR41			= received_status;
+		if((!sent_err_int) && (enumeration_required)){
+			dali_write_index = (dali_write_index + 1) % DALI_MAX_SLAVE;
+			dali_recv_circular_buff[dali_write_index] = (uint8_t)YES;
+		}
+		sent_err_int--;
+		
 	} else if ( received_status & 0x20) {
 		dali_write_index = (dali_write_index + 1) % DALI_MAX_SLAVE;
 		dali_recv_circular_buff[dali_write_index] = (uint8_t)received_data;
