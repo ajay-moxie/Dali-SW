@@ -52,11 +52,7 @@ void user_main( void )
 	uint8_t ch1_level;
 	static uint8_t buff[HOST_FORWARD_FRAME_SIZE];
 	static uint8_t size;
-	/* Get new level via DALI interface */
-	ch1_level = DALI_getValue( 1 );
 
-	/* Set level to each channel */
-	LED1_set( ch1_level );
 	size = HOST_FORWARD_FRAME_SIZE;
 	if(host_comm.usp_rx(buff,size))
 		host_AnalyzeCommand(buff);

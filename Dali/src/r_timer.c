@@ -57,6 +57,21 @@ static void (*interrupt_proc)() = 0;
 * Argument : none
 * Return Value : none
 ******************************************************************************/
+void Timer_Init( )
+{
+	TPS0	= 0b0000000000000000;
+	TMR00	= 0b0000000000000000;
+	TDR00	= 31999;	/* The initial value of the period is set to 1ms @ 32MHz */
+	TMMK00	= 1;		/* Mask interrupt */
+	TMMK00		   = 0;
+}
+
+/******************************************************************************
+* Function Name : Timer_StartInterval_1ms
+* Description : 
+* Argument : none
+* Return Value : none
+******************************************************************************/
 void Timer_StartInterval_1ms( void (*proc)(void) )
 {
 	interrupt_proc = proc;

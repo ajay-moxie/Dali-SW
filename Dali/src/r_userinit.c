@@ -38,6 +38,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_led.h"
 #include "r_dali.h"
 #include "r_uart.h"
+#include "r_timer.h"
 #include "host_communication.h"
 #include "r_master_state_machine.h"
 
@@ -51,7 +52,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 void user_init( void )
 {
 	t_host_comm host_comm;
-	LED_init( );
+	Timer_Init();
 	DALI_init( );
 	UART1_init( );
 	UART1_start();

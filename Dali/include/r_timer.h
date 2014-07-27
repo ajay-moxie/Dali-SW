@@ -10,5 +10,6 @@
 Exported global variables and functions (to be accessed by other files)
 ******************************************************************************/
 void Timer_StartInterval_1ms( void (*proc)(void) );
+void Timer_Init( );
 
 #endif
