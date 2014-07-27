@@ -7,11 +7,12 @@
 #include "r_dali_slave.h"
 #include "host_communication.h"
 #include "host_commands.h"
+#include "r_master_state_machine.h"
 //#define DALI_ENUM_TEST
 static uint8_t state;
 static uint8_t search_substate;
 static uint8_t address;
-uint8_t enumeration_required;
+//uint8_t enumeration_required;
 static uint8_t dali_resend_command = 0;
 static uint8_t search_h = 0xff;
 static uint8_t search_m = 0xff;
@@ -35,7 +36,7 @@ static void DALI_100ms_timeout();
  ******************************************************************************/
 void DALI_Enumerate(uint8_t add)
 {
-	enumeration_required = 1;
+	set_master_state(ENUMERATION);
 	address = add;
 	DALI_InitTimer();
 	DALI_slave_initialize();
@@ -219,7 +220,7 @@ static void DALI_4ms_timeout()
 			break;
 		case TERMINATE:
 			DALI_SendCommand((EXCOMMAND_TERMINATE << 8) | address);
-			enumeration_required = 0;
+			set_master_state(NORMAL);
 			search_h = 0xFF;
 			search_m = 0xFF;
 			search_l = 0xFF;

@@ -50,6 +50,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_dali_variable.h"
 #include "r_dali_enumerate.h"
 #include "r_dali_slave.h"
+#include "r_master_state_machine.h"
 
 /******************************************************************************
 Imported global variables and functions (from other files)
@@ -393,7 +394,7 @@ __interrupt void DALI_ReceiveCommand( void )
 
 	if ( received_status & 0x87) {
 		SIR41			= received_status;
-		if((!sent_err_int) && (enumeration_required)){
+		if((!sent_err_int) && (get_master_state() == ENUMERATION)){
 			dali_write_index = (dali_write_index + 1) % DALI_MAX_SLAVE;
 			dali_recv_circular_buff[dali_write_index] = (uint8_t)YES;
 		}
