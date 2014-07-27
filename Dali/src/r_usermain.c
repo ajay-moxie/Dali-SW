@@ -35,7 +35,6 @@ Includes <System Includes> , ÅgProject IncludesÅh
 ******************************************************************************/
 #include "r_macrodriver.h"
 #include "r_user.h"
-#include "r_led.h"
 #include "r_dali.h"
 #include "host_commands.h"
 #include "host_communication.h"

@@ -34,7 +34,6 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_macrodriver.h"
 #include "r_user.h"
 #include "r_dali.h"
-#include "r_dali_command.h"
 
 #define SIZE_OF_MEMORY_BANK0				16
 #define SIZE_OF_MEMORY_BANK1				16

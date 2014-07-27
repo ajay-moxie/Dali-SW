@@ -39,7 +39,6 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_timer.h"
 #include "r_dali.h"
 #include "r_dali_analyze.h"
-#include "r_dali_command.h"
 #include "r_dali_timer.h"
 
 
