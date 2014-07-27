@@ -286,6 +286,14 @@
       <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
       <Property>79cc25b3-572d-4c8c-87be-93984e52881d</Property>
     </Instance>
+    <Instance Guid="b3d85d2e-d0ed-4970-a094-a2c8173d85df">
+      <Name>r_master_state_machine.c</Name>
+      <Type>File</Type>
+      <RelativePath>src\r_master_state_machine.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>f7775135-b32b-46b5-9420-026a8c88eda9</ParentItem>
+      <Property>9506e04a-6719-4274-8064-7b2cefaef098</Property>
+    </Instance>
     <Instance Guid="ff10675f-6ca7-4ff0-b13f-78afa0b48edf">
       <Name>r_user.h</Name>
       <Type>File</Type>
@@ -482,6 +490,14 @@
       <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
       <Property>7eab689a-f405-4e5c-aede-4df68cdc3dc1</Property>
     </Instance>
+    <Instance Guid="f27bd1aa-aeae-496d-8154-873c3a7475f9">
+      <Name>r_master_state_machine.h</Name>
+      <Type>File</Type>
+      <RelativePath>include\r_master_state_machine.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>b60d2259-462d-42e5-86d6-e7d9aafc0e97</ParentItem>
+      <Property>2e10da82-202d-4ef4-9f8c-2dc2553b2fc5</Property>
+    </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -564,6 +580,12 @@
     <Instance Guid="df1c9661-a376-42ef-815b-2bc509e3ea91">
       <MemoCount>0</MemoCount>
     </Instance>
+    <Instance Guid="eadaeb2b-13c0-4815-a732-a2db48798043">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="79cc25b3-572d-4c8c-87be-93984e52881d">
+      <MemoCount>0</MemoCount>
+    </Instance>
     <Instance Guid="98509fa7-5753-4fcc-a167-afe72df1b66e">
       <MemoCount>0</MemoCount>
     </Instance>
@@ -603,13 +625,13 @@
     <Instance Guid="e977f845-2b8f-4172-8f53-944aac8ca1ad">
       <MemoCount>0</MemoCount>
     </Instance>
-    <Instance Guid="eadaeb2b-13c0-4815-a732-a2db48798043">
-      <MemoCount>0</MemoCount>
-    </Instance>
-    <Instance Guid="79cc25b3-572d-4c8c-87be-93984e52881d">
-      <MemoCount>0</MemoCount>
-    </Instance>
     <Instance Guid="7eab689a-f405-4e5c-aede-4df68cdc3dc1">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="9506e04a-6719-4274-8064-7b2cefaef098">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="2e10da82-202d-4ef4-9f8c-2dc2553b2fc5">
       <MemoCount>0</MemoCount>
     </Instance>
   </Class>
@@ -724,7 +746,9 @@
       <SourceItemType31>CSource</SourceItemType31>
       <SourceItemGuid32>ff60ca33-8c9c-4bb7-b08a-7cfb64f149d0</SourceItemGuid32>
       <SourceItemType32>CSource</SourceItemType32>
-      <SourceItemCount>33</SourceItemCount>
+      <SourceItemGuid33>b3d85d2e-d0ed-4970-a094-a2c8173d85df</SourceItemGuid33>
+      <SourceItemType33>CSource</SourceItemType33>
+      <SourceItemCount>34</SourceItemCount>
       <VfiSourceItemCount>0</VfiSourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
@@ -1392,6 +1416,14 @@ eel_re\smp
       <ItemAddTime>635410594558281897</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="b3d85d2e-d0ed-4970-a094-a2c8173d85df">
+      <ItemAddTime>635420581172836932</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="f27bd1aa-aeae-496d-8154-873c3a7475f9">
+      <ItemAddTime>635420581353597271</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="e4582a76-90da-4988-9864-24db24826845">
       <TimeTagModified-SourceItem0--0>-8588152110195175065</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1526,6 +1558,10 @@ eel_re\smp
       <SourceItem32-IsLockedByUser>False</SourceItem32-IsLockedByUser>
       <SourceItem32-BuildingTarget-0>True</SourceItem32-BuildingTarget-0>
       <SourceItem32-IndividualCompileOption-0>False</SourceItem32-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem33--0>-8587951653681938876</TimeTagModified-SourceItem33--0>
+      <SourceItem33-IsLockedByUser>False</SourceItem33-IsLockedByUser>
+      <SourceItem33-BuildingTarget-0>True</SourceItem33-BuildingTarget-0>
+      <SourceItem33-IndividualCompileOption-0>False</SourceItem33-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
