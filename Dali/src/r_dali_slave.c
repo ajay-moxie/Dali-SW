@@ -80,3 +80,20 @@ void DALI_set_address(uint8_t address, uint32_t offset)
 {
 	dali_slaves[offset].address = address;
 }
+
+
+/******************************************************************************
+ * Function Name : DALI_free_slave_address
+ * Description : DALI free address from list.
+ * Argument : address
+ * Return Value : none
+ ******************************************************************************/
+void DALI_free_slave_address(uint8_t address)
+{
+	uint8_t i = 0;
+	while(i < TOTAL_SLAVES){
+		if(dali_slaves[i].address == address)
+			dali_slaves[i].address = 0xFF;
+		i++;
+	}
+}

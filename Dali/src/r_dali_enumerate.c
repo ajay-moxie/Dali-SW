@@ -164,6 +164,8 @@ static void DALI_4ms_timeout()
 	struct dali_slave slave;
 	switch(state){
 		case INITIALIZE:
+			if((address != 0) && (address != 0xFF))
+				DALI_free_slave_address((address >> 1) & 0x3f);
 			DALI_SendCommand((EXCOMMAND_INITIALIZE << 8) | address);
 			dali_resend_command = 1;
 			DALI_StartTimer(MS_50);
