@@ -40,6 +40,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_timer.h"
 #include "host_communication.h"
 #include "r_master_state_machine.h"
+#include "r_dali_slave.h"
 
 
 /******************************************************************************
@@ -56,6 +57,7 @@ void user_init( void )
 	UART1_init( );
 	UART1_start();
 	master_state_machine_init();
+	DALI_slave_initialize();
 	
 	host_comm.usp_tx = UART1_send;
 	host_comm.usp_rx = UART1_ReadData;

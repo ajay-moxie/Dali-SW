@@ -39,7 +39,8 @@ void DALI_Enumerate(uint8_t add)
 	set_master_state(ENUMERATION);
 	address = add;
 	DALI_InitTimer();
-	DALI_slave_initialize();
+	if(add == 0)
+		DALI_slave_initialize();
 	response = NA;
 	DALI_RegisterTimer(MS_4, DALI_4ms_timeout);
 	DALI_RegisterTimer(MS_8, DALI_8ms_timeout);
