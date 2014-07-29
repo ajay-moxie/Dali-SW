@@ -54,8 +54,8 @@ static void host_ProcessMasterCommand(uint8_t *buff)
 		DALI_Config(config_cmd);
 		break;
 		case DEVICE_COUNT:
-		temp = DALI_get_new_slave_address();
-		RESPONSE_BYTE(host_response,DALI_get_new_slave_address());
+		//temp = DALI_get_slave_count();
+		RESPONSE_BYTE(host_response,DALI_get_slave_count());
 		host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
 		break;
 		case DEVICE_NAME:

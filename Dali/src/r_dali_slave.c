@@ -22,6 +22,23 @@ void DALI_slave_initialize()
 }
 
 /******************************************************************************
+ * Function Name : DALI_get_slave_count
+ * Description : DALI get count of total slaves.
+ * Argument : none
+ * Return Value : none
+ ******************************************************************************/
+uint8_t DALI_get_slave_count()
+{
+	uint8_t i = 0;
+	uint8_t count = 0;
+	while(i < TOTAL_SLAVES){
+		if(dali_slaves[i].address != 0xFF)
+			count++;
+		i++;
+	}
+	return count; //no address available
+}
+/******************************************************************************
  * Function Name : DALI_get_new_address
  * Description : DALI get new available address.
  * Argument : address
