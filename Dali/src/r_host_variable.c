@@ -38,19 +38,18 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_macrodriver.h"
 #include "r_user.h"
 #include "r_dali.h"
-#include "r_dali_variable.h"
+#include "r_host_variable.h"
 #include "eel.h"
 #include "eel_types.h"
 #include "fdl_types.h"
 #include "fdl_descriptor.h"
 #include "fdl.h"
-#include "r_dali.h"
+#include "r_dali_slave.h"
 
 /******************************************************************************
 Imported global variables and functions (from other files)
 ******************************************************************************/
 /* data written in flash memory */
-extern DALI_VARS_T	 dali_variable[NUMBER_OF_CHANNEL];		/* current configuration parameters */
 
 /******************************************************************************
 Exported global variables and functions (to be accessed by other files)
@@ -63,7 +62,7 @@ Exported global variables and functions (to be accessed by other files)
 * Argument : void
 * Return Value : INIT_OK / STATUS_NG
 ******************************************************************************/
-unsigned char DALI_InitEmulation( void )
+unsigned char Host_InitEmulation( void )
 {
 	/* writing permission status */
 	uint8_t Status = STATUS_NG;
@@ -115,12 +114,12 @@ exit_Init:
 }
 
 /******************************************************************************
-* Function Name : DALI_ReadVariables
+* Function Name : Host_ReadVariables
 * Description : Read data to use EEPROM emulation.
 * Argument : DataNumber
 * Return Value : READ_OK / STATUS_NG
 ******************************************************************************/
-uint8_t DALI_ReadVariables( uint8_t DataNumber )
+uint8_t Host_ReadVariables( uint8_t DataNumber, void *addr  )
 {
 	/* writing permission status */
 	uint8_t Status = STATUS_NG;
@@ -140,7 +139,7 @@ uint8_t DALI_ReadVariables( uint8_t DataNumber )
 		goto exit_Read;
 	}
 
-	request.address_pu08	= (eel_u08 *)&dali_variable[DataNumber-1];
+	request.address_pu08	= (eel_u08 *)addr;
 	request.identifier_u08	= DataNumber;
 	request.timeout_u08		= 0xFF;
 	request.command_enu		= EEL_CMD_READ;
@@ -165,12 +164,12 @@ exit_Read:
 }
 
 /******************************************************************************
-* Function Name : DALI_SaveVariables
+* Function Name : Host_SaveVariables
 * Description : Write data to use EEPROM emulation.
 * Argument : DataNumber
 * Return Value : WRITE_OK / STATUS_NG
 ******************************************************************************/
-uint8_t DALI_SaveVariables( uint8_t DataNumber )
+uint8_t Host_SaveVariables( uint8_t DataNumber, void * addr )
 {
 	/* writing permission status */
 	uint8_t Status = STATUS_NG;
@@ -190,7 +189,7 @@ uint8_t DALI_SaveVariables( uint8_t DataNumber )
 		goto exit_Write;
 	}
 
-	request.address_pu08	= (eel_u08 *)&dali_variable[DataNumber-1];
+	request.address_pu08	= (eel_u08 *)addr;
 	request.identifier_u08	= DataNumber;
 	request.timeout_u08		= 0xFF;
 	request.command_enu		= EEL_CMD_WRITE;

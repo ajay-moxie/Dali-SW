@@ -22,14 +22,13 @@ Macro definitions
 /******************************************************************************
 Imported global variables and functions (from other files)
 ******************************************************************************/
-extern DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL];		/* configuration parameters */
 
 /******************************************************************************
 Exported global variables and functions (to be accessed by other files)
 ******************************************************************************/
-uint8_t DALI_InitEmulation( void );
-uint8_t DALI_ReadVariables( uint8_t DataNumber );
-uint8_t DALI_SaveVariables( uint8_t DataNumber );
+uint8_t Host_InitEmulation( void );
+uint8_t Host_ReadVariables( uint8_t DataNumber, void *addr );
+uint8_t Host_SaveVariables( uint8_t DataNumber, void *addr );
 
 
 #endif
