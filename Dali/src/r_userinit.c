@@ -41,7 +41,9 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "host_communication.h"
 #include "r_master_state_machine.h"
 #include "r_dali_slave.h"
+#include "r_host_variable.h"
 
+void host_init( void );
 
 /******************************************************************************
 * Function Name : user_init
@@ -58,6 +60,7 @@ void user_init( void )
 	UART1_start();
 	master_state_machine_init();
 	DALI_slave_initialize();
+	host_init();
 	
 	host_comm.usp_tx = UART1_send;
 	host_comm.usp_rx = UART1_ReadData;
@@ -67,4 +70,26 @@ void user_init( void )
 	host_comm.dwn_register_rx_handler = DALI_RegisterExtRxHandler;
 	host_comm.dwn_unregister_rx_handler = DALI_UnRegisterExtRxHandler;
 	host_RegisterTxRx(host_comm);
+}
+
+/******************************************************************************
+* Function Name : host_init
+* Description : initialize.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+void host_init( void )
+{
+	struct dali_slave aa[40];
+	uint8_t return_code;
+	uint8_t i = 1;
+	if (Host_InitEmulation() ==INIT_OK ){
+			return_code = DALI_read_saved_slave_data();
+			if ( (return_code==READ_NODATA) ||
+			    ((return_code==READ_OK ) && (!DALI_slave_data_exist())) ) {
+				DALI_slave_initialize();
+				DALI_save_slave_data();
+			}
+	}
+
 }
