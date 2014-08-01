@@ -45,7 +45,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_dali.h"
 #include "r_dali_analyze.h"
 #include "r_dali_timer.h"
-#include "r_dali_variable.h"
+//#include "r_dali_variable.h"
 #include "r_dali_enumerate.h"
 #include "r_dali_slave.h"
 #include "r_master_state_machine.h"
