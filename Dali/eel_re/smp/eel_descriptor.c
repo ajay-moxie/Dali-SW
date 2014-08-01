@@ -111,8 +111,8 @@ __far const eel_u08 eel_descriptor[EEL_VAR_NO+1][4] =
             /*  identifier        word-size (1...64)                  byte-size (1..255)         RAM-Ref. */
             /*  ----------------------------------------------------------------------------------------- */
 #if 1
-                (eel_u08)0x01,     (eel_u08)((sizeof(type_XX)+3)/4),    (eel_u08)sizeof(type_XX),   0x01,  \
-                (eel_u08)0x02,     (eel_u08)((sizeof(type_XX)+3)/4),    (eel_u08)sizeof(type_XX),   0x01,  \
+                (eel_u08)0x01,     (eel_u08)((sizeof(type_Z)+3)/4),    (eel_u08)sizeof(type_Z),   0x01,  \
+                (eel_u08)0x02,     (eel_u08)((sizeof(type_Z)+3)/4),    (eel_u08)sizeof(type_Z),   0x01,  \
                 (eel_u08)0x03,     (eel_u08)((sizeof(type_XX)+3)/4),    (eel_u08)sizeof(type_XX),   0x01,  \
 #else
                 (eel_u08)'a',     (eel_u08)((sizeof(type_A)+3)/4),    (eel_u08)sizeof(type_A),   0x01,  \
