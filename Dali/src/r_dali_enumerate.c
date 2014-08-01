@@ -18,6 +18,7 @@ static uint8_t search_h = 0xff;
 static uint8_t search_m = 0xff;
 static uint8_t search_l = 0xff;
 static uint8_t response;
+static uint8_t save = 0;
 extern t_host_comm host_comm;
 #ifdef DALI_ENUM_TEST
 static uint16_t test_withdraw = NO;
@@ -42,6 +43,7 @@ void DALI_Enumerate(uint8_t add)
 	if(add == 0)
 		DALI_slave_initialize();
 	response = NA;
+	save = 0;
 	DALI_RegisterTimer(MS_4, DALI_4ms_timeout);
 	DALI_RegisterTimer(MS_8, DALI_8ms_timeout);
 	DALI_RegisterTimer(MS_10, DALI_10ms_timeout);
@@ -196,6 +198,7 @@ static void DALI_4ms_timeout()
 				DALI_set_slave_config(slave);
 				DALI_SendCommand((EXCOMMAND_PROGRAM_SHORT_ADDRESS << 8) | ((address << 1) | 0x01));
 				state = VERIFY;
+				save = 1;
 			}else{
 				state = TERMINATE;
 				search_substate = SUB_SEARCH_H;
@@ -227,6 +230,10 @@ static void DALI_4ms_timeout()
 			search_h = 0xFF;
 			search_m = 0xFF;
 			search_l = 0xFF;
+			if(save){
+				DALI_save_slave_data();
+				save = 0;
+			}
 			state = INITIALIZE;
 			RESPONSE_ACK(host_response);
 			host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
