@@ -17,5 +17,11 @@ enum name_substates {
 	
 };
 
-void DALI_NameDevice(uint8_t name[8]);
+typedef enum {
+	SLAVE_NAME,
+	ROOM_NAME,
+		
+}name_type_t;
+
+void DALI_NameDevice(uint8_t name[8], name_type_t type);
 //DALI_NameDeviceInitTimer();

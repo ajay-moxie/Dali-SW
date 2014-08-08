@@ -7,6 +7,7 @@
 	#define ENUMERATE 0x1
 	#define DEVICE_COUNT 0x2
 	#define DEVICE_NAME 0x3
+	#define DEVICE_ROOM 0x4
 #define RESPONSE_1BYTE 0xAA 
 #define RESPONSE_2BYTE 0xbb
 	#define ACK 0xFF

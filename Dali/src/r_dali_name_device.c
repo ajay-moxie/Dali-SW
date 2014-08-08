@@ -7,7 +7,7 @@
 #include "host_communication.h"
 #include "host_commands.h"
 static enum device_name_states state;
-enum name_substates sub_state;
+static enum name_substates sub_state;
 static uint8_t address;
 static uint8_t enumeration_required = 1;
 static uint8_t dali_resend_command = 0;
@@ -17,6 +17,7 @@ static void DALI_4ms_timeout();
 static void DALI_10ms_timeout();
 static int name_change = 0;
 static uint8_t *new_name;
+static name_type_t name_type;
 
 /******************************************************************************
  * Function Name : DALI_NameDevice
@@ -24,11 +25,12 @@ static uint8_t *new_name;
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-void DALI_NameDevice(uint8_t *name)
+void DALI_NameDevice(uint8_t *name, name_type_t type)
 {
 	name_change = 1;
 	address = name[0];
 	new_name = name + 1;
+	name_type = type;
 	DALI_NameDeviceInitTimer();
 	DALI_RegisterDeviceNameTimer(MS_4, DALI_4ms_timeout);
 	DALI_RegisterDeviceNameTimer(MS_10, DALI_10ms_timeout);
@@ -113,7 +115,10 @@ static void DALI_4ms_timeout()
 			DALI_NameDeviceStartTimer(MS_4);
 			break;
 			case SUB_NAME_ADDRESS:
-			DALI_SendCommand((EXCOMMAND_WRITE_NAME << 8) | address);
+			if(name_type == SLAVE_NAME)
+				DALI_SendCommand((EXCOMMAND_WRITE_NAME << 8) | address);
+			else if(name_type == ROOM_NAME)
+				DALI_SendCommand((EXCOMMAND_WRITE_ROOM << 8) | address);
 			sub_state = SUB_NAME_OFFSET;
 			if(state != NAME7){
 				DALI_NameDeviceStartTimer(MS_4);
