@@ -80,7 +80,8 @@ DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL] = {
 				   0,	/* reserved */
 				   0,	/* reserved */
 				   0,	/* for check data */
-				   LED_LIGHT
+				   SLAVE_NAME,
+				   ROOM_NAME,
 
 			/* Channel 2 */
 				   1,	/* version_number */
@@ -120,7 +121,8 @@ DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL] = {
 				   0,	/* reserved */
 				   0,	/* reserved */
 				   0,	/* for check data */
-				   LED_LIGHT
+				   SLAVE_NAME,
+				   ROOM_NAME,
 
 			/* Channel 3 */
 				   1,	/* version_number */
@@ -160,6 +162,7 @@ DALI_VARS_T	dali_variable[NUMBER_OF_CHANNEL] = {
 				   0,	/* reserved */
 				   0,	/* reserved */
 				   0,	/* for check data */
-				   LED_LIGHT
+				   SLAVE_NAME,
+				   ROOM_NAME,
 
 };

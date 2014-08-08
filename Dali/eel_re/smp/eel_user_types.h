@@ -60,6 +60,6 @@ typedef   eel_u08   type_F[10];
 typedef   eel_u08   type_X[20];
 typedef   eel_u08   type_Z[255];
 
-typedef   eel_u08   type_XX[40];
+typedef   eel_u08   type_XX[56];
 
 #endif
