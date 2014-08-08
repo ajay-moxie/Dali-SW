@@ -15,7 +15,7 @@
 #define UART_FEF_MASK 0x4
 #define UART_PEF_MASK 0x2
 #define UART_OVF_MASK 0x1
-#define UART_RX_BUFFER_SIZE 16
+#define UART_RX_BUFFER_SIZE 32
 static uint8_t uart_rx_circular_buff[UART_RX_BUFFER_SIZE];
 static uint8_t uart_rx_read_index = UART_RX_BUFFER_SIZE - 1;
 static uint8_t uart_rx_write_index = UART_RX_BUFFER_SIZE - 1;
