@@ -49,6 +49,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_dali_enumerate.h"
 #include "r_dali_slave.h"
 #include "r_master_state_machine.h"
+#include "config.h"
 
 /******************************************************************************
 Imported global variables and functions (from other files)
@@ -132,14 +133,23 @@ void DALI_init( void )
 
 	NFEN3	= 0x01;							/* noise filter on					*/
 
-	PIOR1	= 0x02;
-
+	
+#ifdef DALI_PIN_23_22
+	PIOR1	= 0x0;
+	P20.5	= 1;							/* set port mode DALI(Tx)			*/
+	PM20.5	= 0;
+	POM20.5	= 1;
+	PM20.6	= 1;							/* set port mode DALI(Rx)			*/
+	//PIM1.1	= 1;
+#endif
+#ifdef DALI_PIN_31_30
+	PIOR1	= 0x2;
 	P1.0	= 1;							/* set port mode DALI(Tx)			*/
 	PM1.0	= 0;
 	POM1.0	= 1;
 	PM1.1	= 1;							/* set port mode DALI(Rx)			*/
 	PIM1.1	= 1;
-
+#endif
 	STDLIF4	= 0;							/* interrupt flg clear				*/
 	SRDLIF4	= 0;							/* interrupt flg clear				*/
 	SREDLIF4= 0;							/* interrupt flg clear				*/
