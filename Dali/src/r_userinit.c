@@ -42,6 +42,7 @@ Includes <System Includes> , ÅgProject IncludesÅh
 #include "r_master_state_machine.h"
 #include "r_dali_slave.h"
 #include "r_host_variable.h"
+#include "config.h"
 
 void host_init( void );
 
@@ -56,16 +57,22 @@ void user_init( void )
 	t_host_comm host_comm;
 	Timer_Init();
 	DALI_init( );
-	UART1_init( );
+	UART_init( );
+	
+#ifdef CONFIG_UART1
 	UART1_start();
+#endif
+#ifdef CONFIG_UART0
+	UART0_start();
+#endif
 	master_state_machine_init();
 	DALI_slave_initialize();
 	host_init();
 	
-	host_comm.usp_tx = UART1_send;
-	host_comm.usp_rx = UART1_ReadData;
-	host_comm.dwn_tx = DALI_SendCommand;
+	host_comm.usp_tx = USP_TX_FN;
+	host_comm.usp_rx = USP_RX_FN;
 	host_comm.dwn_rx = DALI_ReadData;
+	host_comm.dwn_tx = DALI_SendCommand;
 	host_comm.dwn_response = Dali_IsDwnResponseNeeded;
 	host_comm.dwn_register_rx_handler = DALI_RegisterExtRxHandler;
 	host_comm.dwn_unregister_rx_handler = DALI_UnRegisterExtRxHandler;

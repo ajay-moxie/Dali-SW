@@ -349,8 +349,11 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 
-void UART1_init();
+void UART_init();
 void UART1_start();
+void UART0_start();
 uint8_t UART1_send(uint8_t *data, uint8_t size);
+uint8_t UART0_send(uint8_t *data, uint8_t size);
 uint8_t UART1_ReadData( uint8_t *buff, uint8_t size);
+uint8_t UART0_ReadData( uint8_t *buff, uint8_t size);
 #endif
