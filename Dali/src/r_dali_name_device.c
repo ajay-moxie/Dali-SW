@@ -39,52 +39,6 @@ void DALI_NameDevice(uint8_t *name, name_type_t type)
 }
 
 /******************************************************************************
- * Function Name : DALI_search_address
- * Description : DALI guess search address. Need to find search address. 
- * Argument : none
- * Return Value : none
- ******************************************************************************/
-static uint8_t DALI_search_address(uint8_t response, uint8_t *guess )
-{
-	static uint8_t high;
-	static uint8_t last;
-	static uint8_t low;
-	uint8_t ret = NO;
-	if(response == YES){
-		if((high - last == 1) || (last - low == 1))
-		{
-			ret = YES;
-			*guess = last;
-			high = 0xFF;
-			last = 0xFF;
-			low = 0x00;
-			return ret;
-		}
-		*guess = (uint8_t)(((uint16_t)last + (uint16_t)low) >> 1);
-		high = last;
-		last = *guess;
-	}
-	else if(response == NO){
-		if(high - last == 1){
-			*guess = high;
-		}
-		else
-			*guess = (uint8_t)(((uint16_t)high + (uint16_t)last) >> 1);
-		low = last;
-		last = *guess;
-	}
-	else if(response == NA){/*first time, send 0xFF*/
-		high = 0xFF;
-		*guess = last = 0xFF;
-		low = 0x0;
-	}
-	else{
-	}
-	return ret;
-}
-
-
-/******************************************************************************
  * Function Name : DALI_4ms_timeout
  * Description : Actions when 4ms timer timeout
  * Argument : none
