@@ -59,11 +59,11 @@ static void host_ProcessMasterCommand(uint8_t *buff)
 		host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
 		break;
 		case DEVICE_NAME:
-		DALI_NameDevice(buff + 1, SLAVE_NAME);
+		DALI_SetDeviceName(buff + 1, SLAVE_NAME);
 		
 		break;
 		case DEVICE_ROOM:
-		DALI_NameDevice(buff + 1, ROOM_NAME);
+		DALI_SetDeviceName(buff + 1, ROOM_NAME);
 		
 		break;
 		default:

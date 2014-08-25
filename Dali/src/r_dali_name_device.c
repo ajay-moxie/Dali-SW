@@ -13,38 +13,38 @@ static uint8_t enumeration_required = 1;
 static uint8_t dali_resend_command = 0;
 static uint8_t response;
 extern t_host_comm host_comm;
-static void DALI_4ms_timeout();
-static void DALI_10ms_timeout();
+static void DALI_set_name_4ms_timeout();
+static void DALI_set_name_10ms_timeout();
 static int name_change = 0;
 static uint8_t *new_name;
 static name_type_t name_type;
 
 /******************************************************************************
- * Function Name : DALI_NameDevice
+ * Function Name : DALI_SetDeviceDevice
  * Description : DALI Name/Rename Slave Device.
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-void DALI_NameDevice(uint8_t *name, name_type_t type)
+void DALI_SetDeviceName(uint8_t *name, name_type_t type)
 {
 	name_change = 1;
 	address = name[0];
 	new_name = name + 1;
 	name_type = type;
 	DALI_NameDeviceInitTimer();
-	DALI_RegisterDeviceNameTimer(MS_4, DALI_4ms_timeout);
-	DALI_RegisterDeviceNameTimer(MS_10, DALI_10ms_timeout);
+	DALI_RegisterDeviceNameTimer(MS_4, DALI_set_name_4ms_timeout);
+	DALI_RegisterDeviceNameTimer(MS_10, DALI_set_name_10ms_timeout);
 	DALI_NameDeviceStartTimer(MS_4);
 	state = NAME0;
 }
 
 /******************************************************************************
- * Function Name : DALI_4ms_timeout
+ * Function Name : DALI_set_name_4ms_timeout
  * Description : Actions when 4ms timer timeout
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-static void DALI_4ms_timeout()
+static void DALI_set_name_4ms_timeout()
 {
 	uint8_t guess_address;
 	static uint8_t host_response[3];
@@ -93,13 +93,13 @@ static void DALI_4ms_timeout()
 
 
 /******************************************************************************
- * Function Name : DALI_10ms_timeout
+ * Function Name : DALI_set_name_10ms_timeout
  * Description : Actions when 10ms timer timeout. By this time all responses
  * from slaves should be received
  * Argument : none
  * Return Value : none
  ******************************************************************************/
-static void DALI_10ms_timeout()
+static void DALI_set_name_10ms_timeout()
 {
 	static uint8_t response[3];
 	response[0] = NO;

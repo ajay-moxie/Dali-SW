@@ -23,5 +23,5 @@ typedef enum {
 		
 }name_type_t;
 
-void DALI_NameDevice(uint8_t name[8], name_type_t type);
+void DALI_SetDeviceName(uint8_t name[8], name_type_t type);
 //DALI_NameDeviceInitTimer();
