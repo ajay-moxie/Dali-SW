@@ -343,10 +343,13 @@ void UART_init()
 	/* Set RxD1 pin */
 	PMC0 &= 0xF7U;
 	PM0 |= 0x08U;
+	PU0 |= 0x08;
 	/* Set TxD1 pin */
 	PMC0 &= 0xFBU;
 	P0 |= 0x04U;
+	//POM0 |= 0x4;
 	PM0 &= 0xFBU;
+	
 #endif
 #ifdef CONFIG_UART0
 	ST0 |= _0002_SAU_CH1_START_TRG_ON| _0001_SAU_CH0_START_TRG_ON;    /* disable UART0 receive and transmit */
