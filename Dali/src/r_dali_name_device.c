@@ -9,15 +9,17 @@
 static enum device_name_states state;
 static enum name_substates sub_state;
 static uint8_t address;
-static uint8_t enumeration_required = 1;
-static uint8_t dali_resend_command = 0;
 static uint8_t response;
 extern t_host_comm host_comm;
 static void DALI_set_name_4ms_timeout();
 static void DALI_set_name_10ms_timeout();
+static void DALI_get_name_4ms_timeout();
+static void DALI_get_name_10ms_timeout();
 static int name_change = 0;
 static uint8_t *new_name;
+static uint8_t name[8];
 static name_type_t name_type;
+static get_name_callback name_callback;
 
 /******************************************************************************
  * Function Name : DALI_SetDeviceDevice
@@ -38,6 +40,68 @@ void DALI_SetDeviceName(uint8_t *name, name_type_t type)
 	state = NAME0;
 }
 
+/******************************************************************************
+ * Function Name : DALI_GetDeviceDevice
+ * Description : DALI Name/Rename Slave Device.
+ * Argument : none
+ * Return Value : none
+ ******************************************************************************/
+void DALI_GetDeviceName(uint8_t add, name_type_t type, get_name_callback callback)
+{
+	name_change = 1;
+	address = add;
+	name_type = type;
+	name_callback = callback;
+	state = NAME0;
+	name[0] = 'a'; name[1] = 'a'; 
+	DALI_NameDeviceInitTimer();
+	DALI_RegisterDeviceNameTimer(MS_4, DALI_get_name_4ms_timeout);
+	DALI_RegisterDeviceNameTimer(MS_10, DALI_get_name_10ms_timeout);
+	DALI_NameDeviceStartTimer(MS_4);
+}
+
+
+/******************************************************************************
+ * Function Name : DALI_get_name_4ms_timeout
+ * Description : Actions when 4ms timer timeout
+ * Argument : none
+ * Return Value : none
+ ******************************************************************************/
+static void DALI_get_name_4ms_timeout()
+{
+	static uint8_t host_response[3];
+	uint8_t cmd;
+	switch(state){
+		case NAME0:
+			cmd = COMMAND_QUERY_DEVICE_NAME0;
+			break;
+		case NAME1:
+			cmd = COMMAND_QUERY_DEVICE_NAME1;
+			break;
+		case NAME2:
+			cmd = COMMAND_QUERY_DEVICE_NAME2;
+			break;
+		case NAME3:
+			cmd = COMMAND_QUERY_DEVICE_NAME3;
+			break;
+		case NAME4:
+			cmd = COMMAND_QUERY_DEVICE_NAME4;
+			break;
+		case NAME5:
+			cmd = COMMAND_QUERY_DEVICE_NAME5;
+			break;
+		case NAME6:
+			cmd = COMMAND_QUERY_DEVICE_NAME6;
+			break;
+		case NAME7:
+			cmd = COMMAND_QUERY_DEVICE_NAME7;
+			break;
+		default:
+			break;
+		}
+		DALI_SendCommand(((uint16_t)address << 9) | (1 << 8) | cmd);
+		DALI_NameDeviceStartTimer(MS_10);
+}
 /******************************************************************************
  * Function Name : DALI_set_name_4ms_timeout
  * Description : Actions when 4ms timer timeout
@@ -92,6 +156,28 @@ static void DALI_set_name_4ms_timeout()
 }
 
 
+/******************************************************************************
+ * Function Name : DALI_get_name_10ms_timeout
+ * Description : Actions when 10ms timer timeout. By this time all responses
+ * from slaves should be received
+ * Argument : none
+ * Return Value : none
+ ******************************************************************************/
+static void DALI_get_name_10ms_timeout()
+{
+	static uint8_t response;
+
+	DALI_ReadData(&response);
+	name[state] = response;
+	if(state != NAME7){
+		state = state + 1;
+		DALI_NameDeviceStartTimer(MS_4);
+	}
+	else if(state == NAME7){
+		state = NAME0;
+		name_callback(name);
+	}
+}
 /******************************************************************************
  * Function Name : DALI_set_name_10ms_timeout
  * Description : Actions when 10ms timer timeout. By this time all responses

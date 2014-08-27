@@ -8,6 +8,7 @@
 #include "host_communication.h"
 #include "host_commands.h"
 #include "r_master_state_machine.h"
+#include "r_dali_name_device.h"
 //#define DALI_ENUM_TEST
 static uint8_t state;
 static uint8_t search_substate;
@@ -154,6 +155,24 @@ static void DALI_search_communication()
 	}
 
 }
+
+/******************************************************************************
+ * Function Name : host_DeviceNameCallbk
+ * Description : Device name call back fn.
+ * Argument : none
+ * Return Value : none
+ ******************************************************************************/
+void DALI_ReportDevice(uint8_t address)
+{
+	static uint8_t response[HOST_BACKWARD_FRAME_SIZE];
+	int i;
+	response[0] = address;
+	
+	response[1] = search_h;
+	response[2] = search_m;
+	response[3] = search_l;
+	host_comm.usp_tx(response, HOST_BACKWARD_FRAME_SIZE);
+}
 /******************************************************************************
  * Function Name : DALI_4ms_timeout
  * Description : Actions when 4ms timer timeout
@@ -216,13 +235,14 @@ static void DALI_4ms_timeout()
 			response = NA;
 			state = SEARCH_H;
 			search_substate = SUB_SEARCH_H;
+			DALI_ReportDevice(address);
 			search_h = 0xFF;
 			search_m = 0xFF;
 			search_l = 0xFF;
+			DALI_StartTimer(MS_4);
 #ifdef DALI_ENUM_TEST
 //			test_withdraw = YES;
 #endif
-			DALI_StartTimer(MS_4);
 			break;
 		case TERMINATE:
 			DALI_SendCommand((EXCOMMAND_TERMINATE << 8) | address);

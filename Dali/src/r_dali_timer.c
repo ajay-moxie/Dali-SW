@@ -111,6 +111,33 @@ void DALI_InitTimer( void )
 	Timer_StartInterval_1ms(DALI_Counter);
 }
 
+/******************************************************************************
+* Function Name : DALI_InitTimer
+* Description : Initialize the interval timer.
+* Argument : none
+* Return Value : none
+******************************************************************************/
+void DALI_ReInitTimer( void )
+{
+	uint8_t i;
+
+	/* initialize variable. */
+	
+	dali_timeout.timecount_4ms = 0;
+	dali_timeout.timecount_8ms = 0;
+	dali_timeout.timecount_10ms = 0;
+	dali_timeout.timecount_50ms = 0;
+	dali_timeout.timecount_100ms = 0;
+	dali_timeout.timecount_15min = 0;
+	
+	dali_timeout.func_timecount_4ms = (fn_t)0;
+	dali_timeout.func_timecount_8ms = (fn_t)0;
+	dali_timeout.func_timecount_10ms = (fn_t)0;
+	dali_timeout.func_timecount_50ms = (fn_t)0;
+	dali_timeout.func_timecount_100ms = (fn_t)0;
+	dali_timeout.func_timecount_15min = (fn_t)0;
+	Timer_StartInterval_1ms(DALI_Counter);
+}
 
 /******************************************************************************
 * Function Name : DALI_counter

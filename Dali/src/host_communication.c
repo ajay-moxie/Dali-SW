@@ -30,6 +30,16 @@ void host_RegisterTxRx(t_host_comm host)
 }
 
 /******************************************************************************
+ * Function Name : host_DeviceNameCallbk
+ * Description : Device name call back fn.
+ * Argument : none
+ * Return Value : none
+ ******************************************************************************/
+void host_DeviceNameCallbk(uint8_t *name)
+{
+	host_comm.usp_tx(name, HOST_BACKWARD_FRAME_SIZE);
+}
+/******************************************************************************
  * Function Name : host_ProcessMasterCommand
  * Description : Function to read data from circular buffer.
  * Argument : none
@@ -58,13 +68,17 @@ static void host_ProcessMasterCommand(uint8_t *buff)
 		RESPONSE_BYTE(host_response,DALI_get_slave_count());
 		host_comm.usp_tx(host_response, HOST_BACKWARD_FRAME_SIZE);
 		break;
+		
 		case DEVICE_NAME:
 		DALI_SetDeviceName(buff + 1, SLAVE_NAME);
-		
 		break;
+		
+		case GET_DEVICE_NAME:
+		DALI_GetDeviceName(*(buff + 1), SLAVE_NAME, host_DeviceNameCallbk);
+		break;
+		
 		case DEVICE_ROOM:
 		DALI_SetDeviceName(buff + 1, ROOM_NAME);
-		
 		break;
 		default:
 		break;

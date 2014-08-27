@@ -23,5 +23,7 @@ typedef enum {
 		
 }name_type_t;
 
+typedef void (*get_name_callback)(uint8_t *name);
 void DALI_SetDeviceName(uint8_t name[8], name_type_t type);
+void DALI_GetDeviceName(uint8_t add, name_type_t type, get_name_callback callback);
 //DALI_NameDeviceInitTimer();

@@ -56,6 +56,7 @@ struct timer {
 Exported global variables and functions (to be accessed by other files)
 ******************************************************************************/
 void DALI_InitTimer( void );
+void DALI_ReInitTimer( void );
 void DALI_ConfigInitTimer( void );
 void DALI_NameDeviceInitTimer( void );
 void DALI_RegisterTimer(uint16_t type, fn_t func);
