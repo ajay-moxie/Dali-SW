@@ -1,7 +1,13 @@
 .gitignore
 Dali/DefaultBuild/
+DefaultBuild/
 Dali/*.hex
 Dali/*.sym
+Dali/*.swo
+Dali/src/*.swo
+Dali/include/*.swo
+Dali/include/*.h1
+Dali/src/*.h1
 Dali/*.map
 *.swp
 *~
